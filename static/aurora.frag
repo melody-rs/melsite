@@ -82,7 +82,7 @@ vec4 aurora(vec3 ro, vec3 rd)
         vec2 p = bpos.zx;
         float rzt = triNoise2d(p, 0.06);
         vec4 col2 = vec4(0,0,0, rzt);
-        col2.rgb = (sin(1.-vec3(2.15,-.5, 1.2)+i*0.043)*0.5+0.5)*rzt;
+        col2.rgb = (sin(1.-vec3(0.8,2.15,-1.0)+i*0.043)*0.5+0.5)*rzt;
         avgCol =  mix(avgCol, col2, .5);
         col += avgCol*exp2(-i*0.065 - 2.5)*smoothstep(0.,5., i);
         
