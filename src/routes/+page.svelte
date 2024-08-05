@@ -1,3 +1,7 @@
+<script>
+  import Background from "$lib/Background.svelte";
+</script>
+
 <svelte:head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mel's site</title>
@@ -25,7 +29,9 @@
     }
   </style>
 </svelte:head>
+
 <body>
+  <Background />
   <h1>Mel's site!</h1>
   <br />
 
