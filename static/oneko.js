@@ -20,6 +20,9 @@ function random_in_range(min, max) {
   let nekoPosX = random_in_range(32, window.innerWidth - 63);
   let nekoPosY = random_in_range(32, window.innerHeight - 63);
 
+  let mousePosX = 0;
+  let mousePosY = 0;
+
   let frameCount = 0;
   let idleTime = 0;
   let idleAnimation = null;
