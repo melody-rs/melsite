@@ -2,6 +2,7 @@
 precision lowp float;
 uniform float iTime;
 uniform vec3 iResolution;
+uniform sampler2D background;
 
 void mainImage( out vec4 fragColor, in vec2 fragCoord );
 
@@ -112,33 +113,7 @@ vec3 nmzHash33(vec3 q)
     return vec3(p^(p >> 16U))*(1.0/vec3(0xffffffffU));
 }
 
-vec3 stars(in vec3 p)
-{
-    vec3 c = vec3(0.);
-    float res = iResolution.x*1.;
-    
-	for (float i=0.;i<4.;i++)
-    {
-        vec3 q = fract(p*(.15*res))-0.5;
-        vec3 id = floor(p*(.15*res));
-        vec2 rn = nmzHash33(id).xy;
-        float c2 = 1.-smoothstep(0.,.6,length(q));
-        c2 *= step(rn.x,.0005+i*i*0.001);
-        c += c2*(mix(vec3(1.0,0.49,0.1),vec3(0.75,0.9,1.),rn.y)*0.1+0.9);
-        p *= 1.3;
-    }
-    return c*c*.8;
-}
-
-vec3 bg(in vec3 rd)
-{
-    float sd = dot(normalize(vec3(-0.5, -0.6, 0.9)), rd)*0.5+0.5;
-    sd = pow(sd, 5.);
-    vec3 col = mix(vec3(0.05,0.1,0.2), vec3(0.1,0.05,0.2), sd);
-    return col*.63;
-}
 //-----------------------------------------------------------
-
 
 void mainImage( out vec4 fragColor, in vec2 fragCoord )
 {
@@ -151,10 +126,12 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     
     vec3 col = vec3(0.);
 
-    col = bg(rd);
-    
+    ivec2 bg_size = textureSize(background, 0);
+
+    vec4 bg_color = texture(background, gl_FragCoord.xy / vec2(bg_size.x, bg_size.y) * 2.);
+    col = bg_color.rgb;
+
     vec4 aur = smoothstep(0.,1.5,aurora(ro,rd));
-    col += stars(rd);
     col = col*(1.-aur.a) + aur.rgb;
 
 	fragColor = vec4(col, 1.);

@@ -73,11 +73,37 @@
       auroraProgram,
       "iResolution",
     );
+    const backgroundUniform = gl.getUniformLocation(
+      auroraProgram,
+      "background",
+    );
+
     const blitSourceUniform = gl.getUniformLocation(blitProgram, "source");
     const blitResolutionUniform = gl.getUniformLocation(
       blitProgram,
       "resolution",
     );
+
+    // load background texture
+    const background = new Image();
+    background.src = "0124-stars.gif";
+
+    await new Promise((resolve) => {
+      background.onload = resolve;
+    });
+
+    const backgroundTexture = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, backgroundTexture);
+    gl.texImage2D(
+      gl.TEXTURE_2D,
+      0,
+      gl.RGBA,
+      gl.RGBA,
+      gl.UNSIGNED_BYTE,
+      background,
+    );
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
 
     function createFramebufferTexture(): WebGLTexture {
       const framebuffer_texture = <WebGLTexture>gl.createTexture();
@@ -143,6 +169,10 @@
 
       gl.uniform1f(timeUniform, time);
       gl.uniform3f(resolutionUniform, tex_width, tex_height, 0.0);
+
+      gl.activeTexture(gl.TEXTURE0);
+      gl.bindTexture(gl.TEXTURE_2D, backgroundTexture);
+      gl.uniform1i(backgroundUniform, 0);
 
       gl.drawArrays(gl.TRIANGLES, 0, 6);
 
