@@ -1,6 +1,13 @@
 // oneko.js: https://github.com/adryd325/oneko.js
 // uses a fork so you can pet the cat:
 // https://github.com/tylxr59/oneko.js/
+// made some adjustments related to size, and cat's starting position
+
+function random_in_range(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min) + min);
+}
 
 (function oneko() {
   const isReducedMotion =
@@ -10,12 +17,8 @@
   if (isReducedMotion) return;
 
   const nekoEl = document.createElement("div");
-
-  let nekoPosX = 32;
-  let nekoPosY = 32;
-
-  let mousePosX = 0;
-  let mousePosY = 0;
+  let nekoPosX = random_in_range(32, window.innerWidth - 63);
+  let nekoPosY = random_in_range(32, window.innerHeight - 63);
 
   let frameCount = 0;
   let idleTime = 0;
@@ -145,12 +148,8 @@
   function idle() {
     idleTime += 1;
 
-    // every ~ 20 seconds
-    if (
-      idleTime > 10 &&
-      Math.floor(Math.random() * 200) == 0 &&
-      idleAnimation == null
-    ) {
+    // every ~ 10 seconds
+    if (idleTime > 10 && true && idleAnimation == null) {
       let avalibleIdleAnimations = ["sleeping", "scratchSelf"];
       if (nekoPosX < 32) {
         avalibleIdleAnimations.push("scratchWallW");
@@ -209,12 +208,14 @@
     for (let i = 0; i < 10; i++) {
       const heart = document.createElement('div');
       heart.className = 'heart';
-      heart.textContent = '❤';
+      heart.textContent = '🩷';
+      heart.style.fontSize = `${Math.random() * 10 + 10}px`;
       const offsetX = (Math.random() - 0.5) * 50;
       const offsetY = (Math.random() - 0.5) * 50;
       heart.style.left = `${centerX + offsetX - 16}px`;
       heart.style.top = `${centerY + offsetY - 16}px`;
       heart.style.transform = `translate(-50%, -50%) rotate(${Math.random() * 360}deg)`;
+      heart.style.userSelect = 'none';
       parent.appendChild(heart);
 
       setTimeout(() => {
