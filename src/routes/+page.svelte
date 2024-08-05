@@ -45,7 +45,7 @@
         class="blinkie"
       /></a
     >
-    <a href="https://callistoashley.dev" target="_blank">
+    <a href="https://www.callistoashley.dev" target="_blank">
       <img
         src="queer.png"
         class="blinkie"
