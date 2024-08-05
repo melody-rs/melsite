@@ -37,7 +37,7 @@
         class="blinkie"
       /></a
     >
-    <a href="https://www.callistoashley.dev" target="_blank">
+    <a href="https://plasticdino.neocities.org/" target="_blank">
       <img
         src="queer.png"
         class="blinkie"
