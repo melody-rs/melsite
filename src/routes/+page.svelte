@@ -7,14 +7,6 @@
       margin: 0 5px;
     }
 
-    body {
-      background-image: url("0124-stars.gif");
-    }
-
-    h {
-      color: white;
-    }
-
     /* Move to bottom of page */
     footer {
       position: fixed;
@@ -33,9 +25,9 @@
     }
   </style>
 </svelte:head>
-
 <body>
-  <h>Mel's site!</h><br />
+  <h1>Mel's site!</h1>
+  <br />
 
   <footer>
     <a href="https://blinkies.cafe" target="_blank"
