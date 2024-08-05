@@ -6,7 +6,7 @@
     const canvas = <HTMLCanvasElement>(
       document.getElementById("auroraBackground")
     );
-    const gl = <WebGLRenderingContext>canvas.getContext("webgl2");
+    const gl = <WebGL2RenderingContext>canvas.getContext("webgl2");
 
     // set opengl log function
 
@@ -31,43 +31,87 @@
 
     // initialize shaders
     // import from external file
-    const fragmentShader = await createShader(
-      "aurora.frag",
-      gl.FRAGMENT_SHADER,
-    );
-    const vertexShader = await createShader("aurora.vert", gl.VERTEX_SHADER);
+    let fragmentShader = await createShader("aurora.frag", gl.FRAGMENT_SHADER);
+    let vertexShader = await createShader("quad.vert", gl.VERTEX_SHADER);
 
     // compile shaders
-    const program = <WebGLProgram>gl.createProgram();
-    gl.attachShader(program, vertexShader);
-    gl.attachShader(program, fragmentShader);
-    gl.linkProgram(program);
+    const auroraProgram = <WebGLProgram>gl.createProgram();
+    gl.attachShader(auroraProgram, vertexShader);
+    gl.attachShader(auroraProgram, fragmentShader);
+    gl.linkProgram(auroraProgram);
 
-    gl.deleteShader(vertexShader);
     gl.deleteShader(fragmentShader);
+    gl.deleteShader(vertexShader);
 
-    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-      console.error(gl.getProgramInfoLog(program));
-      gl.deleteProgram(program);
+    if (!gl.getProgramParameter(auroraProgram, gl.LINK_STATUS)) {
+      console.error(gl.getProgramInfoLog(auroraProgram));
+      gl.deleteProgram(auroraProgram);
       throw new Error("Failed to link program");
     }
 
-    const timeUniform = gl.getUniformLocation(program, "iTime");
-    const resolutionUniform = gl.getUniformLocation(program, "iResolution");
+    fragmentShader = await createShader("blit.frag", gl.FRAGMENT_SHADER);
+    vertexShader = await createShader("quad.vert", gl.VERTEX_SHADER);
+
+    const blitProgram = <WebGLProgram>gl.createProgram();
+    gl.attachShader(blitProgram, vertexShader);
+    gl.attachShader(blitProgram, fragmentShader);
+    gl.linkProgram(blitProgram);
+
+    gl.deleteShader(fragmentShader);
+    gl.deleteShader(vertexShader);
+
+    if (!gl.getProgramParameter(blitProgram, gl.LINK_STATUS)) {
+      console.error(gl.getProgramInfoLog(blitProgram));
+      gl.deleteProgram(blitProgram);
+      throw new Error("Failed to link program");
+    }
+
+    const timeUniform = gl.getUniformLocation(auroraProgram, "iTime");
+    const resolutionUniform = gl.getUniformLocation(
+      auroraProgram,
+      "iResolution",
+    );
+    const blitSourceUniform = gl.getUniformLocation(blitProgram, "source");
+    const blitResolutionUniform = gl.getUniformLocation(
+      blitProgram,
+      "resolution",
+    );
+
+    function createFramebufferTexture(): WebGLTexture {
+      const framebuffer_texture = <WebGLTexture>gl.createTexture();
+      let tex_width = Math.floor(window.innerWidth / 8);
+      let tex_height = Math.floor(window.innerHeight / 8);
+      gl.bindTexture(gl.TEXTURE_2D, framebuffer_texture);
+      gl.texImage2D(
+        gl.TEXTURE_2D,
+        0,
+        gl.RGBA,
+        tex_width,
+        tex_height,
+        0,
+        gl.RGBA,
+        gl.UNSIGNED_BYTE,
+        null,
+      );
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+
+      return framebuffer_texture;
+    }
 
     // this is used for offscreen rendering- we copy the framebuffer to the screen after rendering to it
-    const framebuffer_texture = gl.createTexture();
-    gl.bindTexture(gl.TEXTURE_2D, framebuffer_texture);
-    gl.texImage2D(
+    let framebuffer_texture = createFramebufferTexture();
+    let tex_width = Math.floor(window.innerWidth / 8);
+    let tex_height = Math.floor(window.innerHeight / 8);
+
+    let framebuffer = gl.createFramebuffer();
+    gl.bindFramebuffer(gl.FRAMEBUFFER, framebuffer);
+    gl.framebufferTexture2D(
+      gl.FRAMEBUFFER,
+      gl.COLOR_ATTACHMENT0,
       gl.TEXTURE_2D,
+      framebuffer_texture,
       0,
-      gl.RGBA,
-      window.innerWidth / 8,
-      canvas.height / 8,
-      0,
-      gl.RGBA,
-      gl.UNSIGNED_BYTE,
-      null,
     );
 
     canvas.width = window.innerWidth;
@@ -87,13 +131,27 @@
         return;
       }
 
-      gl.viewport(0, 0, canvas.width, canvas.height);
-      gl.clearColor(0, 0, 0, 1);
-      gl.clear(gl.COLOR_BUFFER_BIT);
+      console.log("drawing", tex_height, tex_width);
 
-      gl.useProgram(program);
+      gl.bindFramebuffer(gl.FRAMEBUFFER, framebuffer);
+      gl.viewport(0, 0, tex_width, tex_height);
+      gl.useProgram(auroraProgram);
+
       gl.uniform1f(timeUniform, time);
-      gl.uniform3f(resolutionUniform, canvas.width, canvas.height, 0.0);
+      gl.uniform3f(resolutionUniform, tex_width, tex_height, 0.0);
+
+      gl.drawArrays(gl.TRIANGLES, 0, 6);
+
+      gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+      gl.viewport(0, 0, canvas.width, canvas.height);
+      gl.useProgram(blitProgram);
+
+      gl.activeTexture(gl.TEXTURE0);
+      gl.bindTexture(gl.TEXTURE_2D, framebuffer_texture);
+      gl.uniform1i(blitSourceUniform, 0);
+
+      gl.uniform2f(blitResolutionUniform, canvas.width, canvas.height);
+
       gl.drawArrays(gl.TRIANGLES, 0, 6);
 
       last = now;
@@ -103,6 +161,21 @@
     function resize() {
       // delete the old framebuffer
       gl.deleteTexture(framebuffer_texture);
+      gl.deleteFramebuffer(framebuffer);
+      // remake the framebuffer
+      framebuffer_texture = createFramebufferTexture();
+      framebuffer = gl.createFramebuffer();
+      tex_width = Math.floor(window.innerWidth / 8);
+      tex_height = Math.floor(window.innerHeight / 8);
+
+      gl.bindFramebuffer(gl.FRAMEBUFFER, framebuffer);
+      gl.framebufferTexture2D(
+        gl.FRAMEBUFFER,
+        gl.COLOR_ATTACHMENT0,
+        gl.TEXTURE_2D,
+        framebuffer_texture,
+        0,
+      );
 
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
