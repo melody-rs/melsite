@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import { parseGIF, decompressFrames } from "gifuct-js";
 
   onMount(async () => {
     // setup WebGL context
@@ -85,25 +86,33 @@
     );
 
     // load background texture
-    const background = new Image();
-    background.src = "0124-stars.gif";
+    const gifResponse = await fetch("0124-stars.gif");
+    const gifBuffer = await gifResponse.arrayBuffer();
+    const gif = parseGIF(gifBuffer);
+    const frames = decompressFrames(gif, true);
 
-    await new Promise((resolve) => {
-      background.onload = resolve;
+    const backgrounds = frames.map((frame) => {
+      const texture = gl.createTexture();
+      gl.bindTexture(gl.TEXTURE_2D, texture);
+      const source = new ImageData(
+        frame.patch,
+        frame.dims.width,
+        frame.dims.height,
+      );
+      gl.texImage2D(
+        gl.TEXTURE_2D,
+        0,
+        gl.RGBA,
+        gl.RGBA,
+        gl.UNSIGNED_BYTE,
+        source,
+      );
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+      return texture;
     });
 
-    const backgroundTexture = gl.createTexture();
-    gl.bindTexture(gl.TEXTURE_2D, backgroundTexture);
-    gl.texImage2D(
-      gl.TEXTURE_2D,
-      0,
-      gl.RGBA,
-      gl.RGBA,
-      gl.UNSIGNED_BYTE,
-      background,
-    );
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    // create a texture for each frame of the gif
 
     function createFramebufferTexture(): WebGLTexture {
       const framebuffer_texture = <WebGLTexture>gl.createTexture();
@@ -150,6 +159,8 @@
     // perform drawing here
     let last = Date.now();
     let time = 0;
+    let last_time = 0;
+    let backgroundFrame = 0;
     function draw() {
       const now = Date.now();
       const delta = (now - last) / 1000;
@@ -161,8 +172,6 @@
         return;
       }
 
-      console.log("drawing", tex_height, tex_width);
-
       gl.bindFramebuffer(gl.FRAMEBUFFER, framebuffer);
       gl.viewport(0, 0, tex_width, tex_height);
       gl.useProgram(auroraProgram);
@@ -171,7 +180,7 @@
       gl.uniform3f(resolutionUniform, tex_width, tex_height, 0.0);
 
       gl.activeTexture(gl.TEXTURE0);
-      gl.bindTexture(gl.TEXTURE_2D, backgroundTexture);
+      gl.bindTexture(gl.TEXTURE_2D, backgrounds[backgroundFrame]);
       gl.uniform1i(backgroundUniform, 0);
 
       gl.drawArrays(gl.TRIANGLES, 0, 6);
@@ -188,7 +197,12 @@
 
       gl.drawArrays(gl.TRIANGLES, 0, 6);
 
+      if (Math.floor(time / 2) > Math.floor(last_time / 2)) {
+        backgroundFrame = (backgroundFrame + 1) % backgrounds.length;
+      }
+
       last = now;
+      last_time = time;
       window.requestAnimationFrame(draw);
     }
 
