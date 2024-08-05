@@ -24,6 +24,8 @@
       padding: 10px;
       display: flex;
       justify-content: center;
+      /* Make it wrap */
+      flex-wrap: wrap;
       /* Make it purple */
       background-color: rgba(128, 0, 196, 0.2);
       /* Add a border */
