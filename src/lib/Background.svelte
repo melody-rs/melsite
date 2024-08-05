@@ -29,6 +29,8 @@
       return shader;
     }
 
+    const FRAMEBUFFER_SCALE_FACTOR = 8;
+
     // initialize shaders
     // import from external file
     let fragmentShader = await createShader("aurora.frag", gl.FRAGMENT_SHADER);
@@ -79,8 +81,10 @@
 
     function createFramebufferTexture(): WebGLTexture {
       const framebuffer_texture = <WebGLTexture>gl.createTexture();
-      let tex_width = Math.floor(window.innerWidth / 8);
-      let tex_height = Math.floor(window.innerHeight / 8);
+      let tex_width = Math.floor(window.innerWidth / FRAMEBUFFER_SCALE_FACTOR);
+      let tex_height = Math.floor(
+        window.innerHeight / FRAMEBUFFER_SCALE_FACTOR,
+      );
       gl.bindTexture(gl.TEXTURE_2D, framebuffer_texture);
       gl.texImage2D(
         gl.TEXTURE_2D,
@@ -101,8 +105,8 @@
 
     // this is used for offscreen rendering- we copy the framebuffer to the screen after rendering to it
     let framebuffer_texture = createFramebufferTexture();
-    let tex_width = Math.floor(window.innerWidth / 8);
-    let tex_height = Math.floor(window.innerHeight / 8);
+    let tex_width = Math.floor(window.innerWidth / FRAMEBUFFER_SCALE_FACTOR);
+    let tex_height = Math.floor(window.innerHeight / FRAMEBUFFER_SCALE_FACTOR);
 
     let framebuffer = gl.createFramebuffer();
     gl.bindFramebuffer(gl.FRAMEBUFFER, framebuffer);
@@ -165,8 +169,8 @@
       // remake the framebuffer
       framebuffer_texture = createFramebufferTexture();
       framebuffer = gl.createFramebuffer();
-      tex_width = Math.floor(window.innerWidth / 8);
-      tex_height = Math.floor(window.innerHeight / 8);
+      tex_width = Math.floor(window.innerWidth / FRAMEBUFFER_SCALE_FACTOR);
+      tex_height = Math.floor(window.innerHeight / FRAMEBUFFER_SCALE_FACTOR);
 
       gl.bindFramebuffer(gl.FRAMEBUFFER, framebuffer);
       gl.framebufferTexture2D(
