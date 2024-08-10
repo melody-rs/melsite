@@ -44,6 +44,9 @@
   <Background />
   <div class="center-div-body">
     <h1>Mel's site!</h1>
+    <p>
+      Just wanna see the Aurora effect? <a href="/aurora">Click here!</a>
+    </p>
     <br />
     <p>Add my site's blinkie!</p>
     <a href="https://melody-is.gay">
@@ -127,4 +130,6 @@
       alt="The text 'lesbian pride' displayed on top of the lesbian pride flag"
     />
   </footer>
+
+  <script src="oneko.js"></script>
 </body>

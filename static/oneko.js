@@ -16,6 +16,10 @@ function random_in_range(min, max) {
 
   if (isReducedMotion) return;
 
+  const prevElement = document.getElementById("oneko");
+  if (prevElement != null)
+    return; // if the element already exists, don't create another one
+
   const nekoEl = document.createElement("div");
   let nekoPosX = random_in_range(32, window.innerWidth - 63);
   let nekoPosY = random_in_range(32, window.innerHeight - 63);
