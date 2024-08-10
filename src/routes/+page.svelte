@@ -27,13 +27,43 @@
       /* Add a border */
       border-top: 8px double rgba(39, 0, 60, 1);
     }
+
+    .center-div-body {
+      display: flex;
+      /* Make it wrap on linebreaks */
+      flex-wrap: wrap;
+      flex-direction: column;
+      /* Center it */
+      align-items: center;
+      justify-content: center;
+    }
   </style>
 </svelte:head>
 
 <body>
   <Background />
-  <h1>Mel's site!</h1>
-  <br />
+  <div class="center-div-body">
+    <h1>Mel's site!</h1>
+    <br />
+    <p>Add my site's blinkie!</p>
+    <a href="https://melody-is.gay">
+      <img
+        src="melsite.gif"
+        class="blinkie"
+        alt="The text 'melody-is.gay' displayed on top of an aurora background. The '.gay' is glashing in rainbow colors."
+      />
+    </a>
+    <pre>
+      <code>
+        &lta href="https://melody-is.gay"&gt
+          &ltimg
+            src="melsite.gif"
+            class="blinkie"
+          /&gt
+        &lt/a&gt
+      </code>
+    </pre>
+  </div>
 
   <footer>
     <a href="https://blinkies.cafe" target="_blank"
@@ -50,6 +80,13 @@
         alt="The text 'you're telling me a queer coded this' displayed on top of a rainbow gradient"
       />
     </a>
+    <a href="https://www.callistoAshley.dev" target="_blank">
+      <img
+        src="ashley.png"
+        class="blinkie"
+        alt="'callisto' written in a pixelated font against a background with pink stars"
+      /></a
+    >
     <img
       src="slugcat.png"
       class="blinkie"
