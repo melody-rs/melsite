@@ -57,14 +57,14 @@
       />
     </a>
     <pre>
-      <code>
-        &lta href="https://melody-is.gay"&gt
-          &ltimg
-            src="melsite.gif"
-            class="blinkie"
-          /&gt
-        &lt/a&gt
-      </code>
+<code>
+&lta href="https://melody-is.gay"&gt
+  &ltimg
+    src="melsite.gif"
+    class="blinkie"
+  /&gt
+&lt/a&gt
+</code>
     </pre>
   </div>
 
