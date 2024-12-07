@@ -75,4 +75,22 @@ impl Wgpu {
     pub fn reconfigure(&self) {
         self.surface.configure(&self.device, &self.surface_config);
     }
+
+    pub fn get_surface_texture(&self) -> Option<wgpu::SurfaceTexture> {
+        match self.surface.get_current_texture() {
+            Ok(t) => Some(t),
+            // Usually means we need to reconfigure the surface
+            Err(wgpu::SurfaceError::Lost | wgpu::SurfaceError::Outdated) => {
+                log::warn!("Surface Lost/Outdated, reconfiguring");
+                self.reconfigure();
+                None
+            }
+            // Took to long to get a surface (Try again next time)
+            Err(wgpu::SurfaceError::Timeout) => {
+                log::error!("Surface timeout!");
+                None
+            }
+            Err(wgpu::SurfaceError::OutOfMemory) => panic!("Out of memory!"),
+        }
+    }
 }

@@ -5,6 +5,7 @@ use std::{
     time::{Duration, Instant},
 };
 
+use descriptor_helpers::RenderPassBuilder;
 use pollster::FutureExt;
 use wgpu_resources::Wgpu;
 use winit::{
@@ -14,6 +15,7 @@ use winit::{
 };
 
 mod binding_helpers;
+mod descriptor_helpers;
 mod shader_helpers;
 mod wgpu_resources;
 
@@ -84,22 +86,9 @@ impl winit::application::ApplicationHandler for App {
             }
             WindowEvent::RedrawRequested => {
                 let before = Instant::now();
-                let surface_tex = match wgpu.surface.get_current_texture() {
-                    Ok(t) => t,
-                    // Usually means we need to reconfigure the surface
-                    Err(wgpu::SurfaceError::Lost | wgpu::SurfaceError::Outdated) => {
-                        log::warn!("Surface Lost/Outdated, reconfiguring");
-                        wgpu.reconfigure();
-                        window.request_redraw();
-                        return;
-                    }
-                    // Took to long to get a surface (Try again next time)
-                    Err(wgpu::SurfaceError::Timeout) => {
-                        log::error!("Surface timeout!");
-                        window.request_redraw();
-                        return;
-                    }
-                    Err(wgpu::SurfaceError::OutOfMemory) => panic!("Out of memory!"),
+                let Some(surface_tex) = wgpu.get_surface_texture() else {
+                    window.request_redraw();
+                    return;
                 };
 
                 let surface_view = surface_tex.texture.create_view(&Default::default());
@@ -109,20 +98,17 @@ impl winit::application::ApplicationHandler for App {
                 };
                 let mut command_encoder = wgpu.device.create_command_encoder(&desc);
 
-                let desc = wgpu::RenderPassDescriptor {
-                    label: Some("main renderpass"),
-                    color_attachments: &[Some(wgpu::RenderPassColorAttachment {
+                let desc = RenderPassBuilder::new()
+                    .with_label("main renderpass")
+                    .with_color_attachment(wgpu::RenderPassColorAttachment {
                         view: &surface_view,
                         resolve_target: None,
                         ops: wgpu::Operations {
                             load: wgpu::LoadOp::Clear(wgpu::Color::TRANSPARENT),
                             store: wgpu::StoreOp::Store,
                         },
-                    })],
-                    depth_stencil_attachment: None,
-                    occlusion_query_set: None,
-                    timestamp_writes: None,
-                };
+                    });
+                let desc = desc.build();
                 let renderpass = command_encoder.begin_render_pass(&desc);
 
                 // finish renderpass
@@ -139,7 +125,6 @@ impl winit::application::ApplicationHandler for App {
                 let frame_dur = Duration::from_secs_f32(1.0 / hertz);
                 let sleep_time = frame_dur.saturating_sub(after - before);
                 std::thread::sleep(sleep_time);
-                println!("{sleep_time:?}");
 
                 window.request_redraw();
             }
