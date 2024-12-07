@@ -1,6 +1,9 @@
 #![allow(clippy::collapsible_match)] // cleaner this way
 
-use std::sync::Arc;
+use std::{
+    sync::Arc,
+    time::{Duration, Instant},
+};
 
 use pollster::FutureExt;
 use wgpu_resources::Wgpu;
@@ -22,6 +25,8 @@ struct State {
     #[allow(dead_code)]
     window: Arc<Window>,
     wgpu: Wgpu,
+
+    target_framerate: u32,
 }
 
 impl winit::application::ApplicationHandler for App {
@@ -38,8 +43,17 @@ impl winit::application::ApplicationHandler for App {
             .expect("failed to create window");
         let window = Arc::new(window);
 
+        let target_framerate = window
+            .current_monitor()
+            .and_then(|m| m.refresh_rate_millihertz())
+            .unwrap_or(60);
+
         let wgpu = Wgpu::new(window.clone()).block_on();
-        self.state = Some(State { window, wgpu });
+        self.state = Some(State {
+            window,
+            wgpu,
+            target_framerate,
+        });
     }
 
     fn window_event(
@@ -49,7 +63,11 @@ impl winit::application::ApplicationHandler for App {
         event: WindowEvent,
     ) {
         // State should be Some(_) because in order to get window events we need a window
-        let State { wgpu, .. } = self.state.as_mut().unwrap();
+        let State {
+            wgpu,
+            window,
+            target_framerate,
+        } = self.state.as_mut().unwrap();
         match event {
             WindowEvent::CloseRequested => event_loop.exit(),
             WindowEvent::KeyboardInput { event, .. } => {
@@ -65,17 +83,20 @@ impl winit::application::ApplicationHandler for App {
                 wgpu.resize(new_size);
             }
             WindowEvent::RedrawRequested => {
+                let before = Instant::now();
                 let surface_tex = match wgpu.surface.get_current_texture() {
                     Ok(t) => t,
                     // Usually means we need to reconfigure the surface
                     Err(wgpu::SurfaceError::Lost | wgpu::SurfaceError::Outdated) => {
                         log::warn!("Surface Lost/Outdated, reconfiguring");
                         wgpu.reconfigure();
+                        window.request_redraw();
                         return;
                     }
                     // Took to long to get a surface (Try again next time)
                     Err(wgpu::SurfaceError::Timeout) => {
                         log::error!("Surface timeout!");
+                        window.request_redraw();
                         return;
                     }
                     Err(wgpu::SurfaceError::OutOfMemory) => panic!("Out of memory!"),
@@ -110,7 +131,17 @@ impl winit::application::ApplicationHandler for App {
                 let command_buffer = command_encoder.finish();
                 wgpu.queue.submit([command_buffer]);
 
+                window.pre_present_notify();
                 surface_tex.present();
+                let after = Instant::now();
+
+                let hertz = *target_framerate as f32 / 1000.0;
+                let frame_dur = Duration::from_secs_f32(1.0 / hertz);
+                let sleep_time = frame_dur.saturating_sub(after - before);
+                std::thread::sleep(sleep_time);
+                println!("{sleep_time:?}");
+
+                window.request_redraw();
             }
             _ => {}
         }
