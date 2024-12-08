@@ -34,7 +34,9 @@ impl Wgpu {
         let surface_caps = surface.get_capabilities(&adapter);
 
         let device_desc = wgpu::DeviceDescriptor {
-            required_features: wgpu::Features::PUSH_CONSTANTS,
+            required_features: wgpu::Features::PUSH_CONSTANTS
+                | wgpu::Features::MULTI_DRAW_INDIRECT
+                | wgpu::Features::MULTI_DRAW_INDIRECT_COUNT,
             required_limits: wgpu::Limits {
                 max_push_constant_size: 128,
                 ..Default::default()
