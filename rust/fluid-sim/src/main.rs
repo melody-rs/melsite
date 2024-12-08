@@ -32,6 +32,7 @@ struct State {
     wgpu: Wgpu,
 
     graphics: Graphics,
+    simulation: Simulation,
 
     target_framerate: u32,
 }
@@ -40,12 +41,25 @@ struct Graphics {
     shader: wgpu::RenderPipeline,
 }
 
+struct Simulation {
+    particles: Vec<Particle>,
+    last_update: Instant,
+}
+
+const GRAVITY: f32 = 9.81;
+
+#[derive(Default)]
+struct Particle {
+    position: glam::Vec2,
+    velocity: glam::Vec2,
+}
+
 #[derive(Clone, Copy, bytemuck::Pod, bytemuck::Zeroable)]
 #[repr(C)]
 struct PushConstants {
     screen_size: glam::Vec2,
-    radius: f32,
     position: glam::Vec2,
+    radius: f32,
 }
 
 impl Graphics {
@@ -80,7 +94,7 @@ impl Graphics {
         }
     }
 
-    fn render(&mut self, window: &Window, wgpu: &Wgpu) {
+    fn render(&mut self, window: &Window, simulation: &Simulation, wgpu: &Wgpu) {
         let Some(surface_tex) = wgpu.get_surface_texture() else {
             window.request_redraw();
             return;
@@ -110,19 +124,21 @@ impl Graphics {
             wgpu.surface_config.width as f32,
             wgpu.surface_config.height as f32,
         );
-        let push_constants = PushConstants {
-            screen_size,
-            radius: 32.0,
-            position: glam::vec2(0.0, 0.0),
-        };
 
         renderpass.set_pipeline(&self.shader);
-        renderpass.set_push_constants(
-            wgpu::ShaderStages::VERTEX_FRAGMENT,
-            0,
-            bytemuck::bytes_of(&push_constants),
-        );
-        renderpass.draw(0..6, 0..1);
+        for particle in simulation.particles.iter() {
+            let push_constants = PushConstants {
+                screen_size,
+                radius: 32.0,
+                position: particle.position * glam::Vec2::NEG_Y * glam::Vec2::splat(32.0),
+            };
+            renderpass.set_push_constants(
+                wgpu::ShaderStages::VERTEX_FRAGMENT,
+                0,
+                bytemuck::bytes_of(&push_constants),
+            );
+            renderpass.draw(0..6, 0..1);
+        }
 
         // finish renderpass
         drop(renderpass);
@@ -134,6 +150,27 @@ impl Graphics {
         surface_tex.present();
 
         window.request_redraw();
+    }
+}
+
+impl Simulation {
+    #[allow(clippy::new_without_default)]
+    fn new() -> Self {
+        Self {
+            particles: vec![Default::default()],
+            last_update: Instant::now(),
+        }
+    }
+
+    fn update(&mut self) {
+        let now = Instant::now();
+        let delta = now.duration_since(self.last_update).as_secs_f32();
+        self.last_update = now;
+
+        for particle in self.particles.iter_mut() {
+            particle.velocity -= glam::vec2(0.0, 1.0) * GRAVITY * delta;
+            particle.position += particle.velocity * delta;
+        }
     }
 }
 
@@ -159,10 +196,13 @@ impl winit::application::ApplicationHandler for App {
         let wgpu = Wgpu::new(window.clone()).block_on();
         let graphics = Graphics::new(&wgpu);
 
+        let simulation = Simulation::new();
+
         self.state = Some(State {
             window,
             wgpu,
             graphics,
+            simulation,
             target_framerate,
         });
     }
@@ -178,6 +218,7 @@ impl winit::application::ApplicationHandler for App {
             wgpu,
             window,
             graphics,
+            simulation,
             target_framerate,
         } = self.state.as_mut().unwrap();
         match event {
@@ -196,7 +237,8 @@ impl winit::application::ApplicationHandler for App {
             }
             WindowEvent::RedrawRequested => {
                 let before = Instant::now();
-                graphics.render(window, wgpu);
+                simulation.update();
+                graphics.render(window, simulation, wgpu);
                 let after = Instant::now();
 
                 let hertz = *target_framerate as f32 / 1000.0;

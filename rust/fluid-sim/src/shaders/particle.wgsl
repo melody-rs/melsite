@@ -4,9 +4,8 @@ struct VertexOutput {
 
 struct Constants {
   screen_size: vec2f,
-
-  radius: f32,
   position: vec2f,
+  radius: f32,
 }
 
 var<push_constant> constants: Constants;
