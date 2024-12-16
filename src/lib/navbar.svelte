@@ -9,9 +9,6 @@
         link.classList.add("current_nav_item");
         link.classList.remove("base_nav_item");
       }
-
-      console.log(link.href);
-      console.log(document.URL);
     }
   });
 </script>
@@ -37,7 +34,7 @@
     margin-top: 4px;
 
     border: 32px solid;
-    border-image: url("border.png") 8 stretch;
+    border-image: url("/border.png") 8 stretch;
     image-rendering: pixelated;
     background: rgba(3, 1, 4, 0.78);
     background-clip: content-box;
