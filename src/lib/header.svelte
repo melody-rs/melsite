@@ -1,0 +1,25 @@
+<header>
+  <h1 class="header_text">Mel's site!</h1>
+</header>
+
+<style>
+  header {
+    top: 0;
+    left: 0;
+    right: 0;
+
+    margin-bottom: 4px;
+
+    display: flex;
+    justify-content: center;
+
+    background-color: rgba(16, 0, 12, 0.9);
+    border-bottom: 8px double rgba(85, 0, 120, 1);
+  }
+
+  .header_text {
+    font-family: "Iosevka SS05 Web", monospace;
+    margin-top: 8px;
+    margin-bottom: 4px;
+  }
+</style>

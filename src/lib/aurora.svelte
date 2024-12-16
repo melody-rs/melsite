@@ -34,8 +34,11 @@
 
     // initialize shaders
     // import from external file
-    let fragmentShader = await createShader("aurora.frag", gl.FRAGMENT_SHADER);
-    let vertexShader = await createShader("quad.vert", gl.VERTEX_SHADER);
+    let fragmentShader = await createShader(
+      "aurora/aurora.frag",
+      gl.FRAGMENT_SHADER,
+    );
+    let vertexShader = await createShader("aurora/quad.vert", gl.VERTEX_SHADER);
 
     // compile shaders
     const auroraProgram = <WebGLProgram>gl.createProgram();
@@ -44,7 +47,6 @@
     gl.linkProgram(auroraProgram);
 
     gl.deleteShader(fragmentShader);
-    gl.deleteShader(vertexShader);
 
     if (!gl.getProgramParameter(auroraProgram, gl.LINK_STATUS)) {
       console.error(gl.getProgramInfoLog(auroraProgram));
@@ -52,8 +54,7 @@
       throw new Error("Failed to link program");
     }
 
-    fragmentShader = await createShader("blit.frag", gl.FRAGMENT_SHADER);
-    vertexShader = await createShader("quad.vert", gl.VERTEX_SHADER);
+    fragmentShader = await createShader("aurora/blit.frag", gl.FRAGMENT_SHADER);
 
     const blitProgram = <WebGLProgram>gl.createProgram();
     gl.attachShader(blitProgram, vertexShader);
@@ -86,7 +87,7 @@
     );
 
     // load background texture
-    const gifResponse = await fetch("0124-stars.gif");
+    const gifResponse = await fetch("aurora/0124-stars.gif");
     const gifBuffer = await gifResponse.arrayBuffer();
     const gif = parseGIF(gifBuffer);
     const frames = decompressFrames(gif, true);
