@@ -222,7 +222,7 @@ impl winit::application::ApplicationHandler for App {
         let target_framerate = window
             .current_monitor()
             .and_then(|m| m.refresh_rate_millihertz())
-            .unwrap_or(60);
+            .unwrap_or(60 * 1000);
 
         let wgpu = Wgpu::new(window.clone()).block_on();
         let graphics = Graphics::new(&wgpu);

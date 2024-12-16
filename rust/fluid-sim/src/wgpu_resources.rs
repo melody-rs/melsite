@@ -17,6 +17,7 @@ impl Wgpu {
     pub async fn new(window: Arc<Window>) -> Self {
         let instance_desc = wgpu::InstanceDescriptor {
             flags: wgpu::InstanceFlags::debugging(),
+            backends: wgpu::Backends::VULKAN,
             ..Default::default()
         };
         let instance = wgpu::Instance::new(instance_desc);
