@@ -12,7 +12,7 @@
     justify-content: center;
 
     background-color: rgba(16, 0, 12, 0.9);
-    border-bottom: 8px double rgba(85, 0, 120, 1);
+    border-bottom: 9px double rgba(85, 0, 120, 1);
   }
 
   .header_text {
