@@ -4,9 +4,9 @@
 </script>
 
 {#if href == page.url.pathname}
-  <a class="nav_item" style="color: #ff73f8" {href}>{name}</a>
+  <a class="active_item nav_item" {href}>{name}</a>
 {:else}
-  <a class="nav_item" style="color: #ffffff" {href}>{name}</a>
+  <a class="inactive_item nav_item" {href}>{name}</a>
 {/if}
 
 <style>
@@ -15,6 +15,13 @@
 
     margin: 8px;
     font-size: min(6vw, 32px);
+  }
+
+  .inactive_item {
+    color: #ffffff;
+  }
+  .active_item {
+    color: #ff73f8;
   }
 
   .nav_item:hover {
