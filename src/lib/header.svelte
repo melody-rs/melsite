@@ -8,8 +8,6 @@
     left: 0;
     right: 0;
 
-    margin-bottom: 4px;
-
     display: flex;
     justify-content: center;
 

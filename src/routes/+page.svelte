@@ -30,14 +30,57 @@
       border-top: 8px double rgba(85, 0, 120, 1);
     }
 
-    .center-div-body {
-      display: flex;
-      /* Make it wrap on linebreaks */
-      flex-wrap: wrap;
-      flex-direction: column;
-      /* Center it */
-      align-items: center;
-      justify-content: center;
+    .main-wrapper {
+      max-width: 1000px;
+      margin-right: auto;
+      margin-left: auto;
+
+      padding: 10px;
+      padding-top: 0px;
+
+      border-left: 8px solid rgba(85, 0, 120, 1);
+      border-right: 8px solid rgba(85, 0, 120, 1);
+
+      background-color: rgba(6, 6, 6, 0.9);
+    }
+    .gradient-wrapper {
+      max-width: 1000px;
+      height: 100px;
+      margin-right: auto;
+      margin-left: auto;
+
+      background: linear-gradient(
+        to bottom,
+        rgba(6, 6, 6, 0.9) 0%,
+        rgba(6, 6, 6, 0) 100%
+      );
+      padding: 10px;
+
+      /* Border image seems to be the only way to have a gradient color */
+      border-image: linear-gradient(
+          to bottom,
+          rgba(85, 0, 120, 1) 0%,
+          rgba(85, 0, 120, 0) 100%
+        )
+        1;
+      border-width: 8px;
+      border-top: 0px;
+      border-bottom: 0px;
+
+      /* I wish I could make this a different style but it doesn't seem easy or possible to do */
+      border-style: solid;
+    }
+
+    .content {
+      margin-left: auto;
+      margin-right: auto;
+      padding-top: 10px;
+
+      font-family: "Iosevka SS05 Web", monospace;
+      font-size: 24px;
+    }
+    sup {
+      font-size: 16px;
     }
   </style>
 </svelte:head>
@@ -45,9 +88,37 @@
 <Background />
 <Header />
 
-<Navbar />
+<div class="main-wrapper">
+  <Navbar />
 
-<div class="center-div-body"></div>
+  <div class="content">
+    <p>
+      Hi! I'm Melody<sup>(she/her nya/nya's)</sup>, and this is my website! I'm
+      a transfem aroace lesbian, who codes for fun and tries to makes games
+      (sometimes). I've got lots of experience in low-level systems languages,
+      especially Rust and C, and I'm sorta experienced at graphics programming!
+    </p>
+    <p>
+      This place is meant to be a little site to introduce myself, host a little
+      blog, and show off some neat little gadgets alongside explanations of how
+      they work (like the aurora background!)
+    </p>
+    <p>
+      The source code for my site isn't publically available yet, but when it is
+      it'll be licensed under GPLv3 with exceptions noted. Some of the assets on
+      this site aren't actually mine though, but they're all listed <a
+        href="/assets">here</a
+      >!
+    </p>
+    <p>
+      Please <a href="/contact">reach out to me</a> if you have problems viewing
+      this site, <i>especially</i> accessibility concerns, or if you just like a
+      thing I've made!
+    </p>
+    <p>:3</p>
+  </div>
+</div>
+<div class="gradient-wrapper"></div>
 
 <footer>
   <a href="https://blinkies.cafe" target="_blank"

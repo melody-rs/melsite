@@ -31,7 +31,7 @@
 
     flex: 1 1 auto;
 
-    margin-top: 4px;
+    margin-top: 8px;
 
     border: 32px solid;
     border-image: url("/border.png") 8 stretch;
@@ -50,7 +50,7 @@
     color: #843dff;
   }
   :global(.current_nav_item) {
-    color: #52b4ff;
+    color: #ff73f8;
   }
   :global(.base_nav_item) {
     color: #ffffff;
