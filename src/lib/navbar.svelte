@@ -17,8 +17,8 @@
 <div style="display: table; margin:auto">
   <nav id="main_navbar">
     <a class="nav_item base_nav_item" href="/">Home</a>
-    <a class="nav_item base_nav_item" href="/about">About</a>
     <a class="nav_item base_nav_item" href="/blog">Blog</a>
+    <a class="nav_item base_nav_item" href="/projects">Projects</a>
     <a class="nav_item base_nav_item" href="/gadgets">Gadgets</a>
     <a class="nav_item base_nav_item" href="/trinkets">Trinkets</a>
   </nav>
