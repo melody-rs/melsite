@@ -24,6 +24,10 @@
       they work (like the aurora background!)
     </p>
     <p>
+      This site was designed on a 1440p display. If you're on mobile, here be
+      dragons
+    </p>
+    <p>
       The source code for my site isn't publicly available yet, but when it is
       it'll be licensed under GPLv3 with exceptions noted. Some of the assets on
       this site aren't actually mine though, but they're all listed <a
