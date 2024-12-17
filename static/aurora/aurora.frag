@@ -17,24 +17,24 @@ void main() {
 // Contact the author for other licensing options
 
 /*
-	
-	There are two main hurdles I encountered rendering this effect. 
-	First, the nature of the texture that needs to be generated to get a believable effect
-	needs to be very specific, with large scale band-like structures, small scale non-smooth variations
-	to create the trail-like effect, a method for animating said texture smoothly and finally doing all
-	of this cheaply enough to be able to evaluate it several times per fragment/pixel.
+  
+  There are two main hurdles I encountered rendering this effect. 
+  First, the nature of the texture that needs to be generated to get a believable effect
+  needs to be very specific, with large scale band-like structures, small scale non-smooth variations
+  to create the trail-like effect, a method for animating said texture smoothly and finally doing all
+  of this cheaply enough to be able to evaluate it several times per fragment/pixel.
 
-	The second obstacle is the need to render a large volume while keeping the computational cost low.
-	Since the effect requires the trails to extend way up in the atmosphere to look good, this means
-	that the evaluated volume cannot be as constrained as with cloud effects. My solution was to make
-	the sample stride increase polynomially, which works very well as long as the trails are lower opcaity than
-	the rest of the effect. Which is always the case for auroras.
+  The second obstacle is the need to render a large volume while keeping the computational cost low.
+  Since the effect requires the trails to extend way up in the atmosphere to look good, this means
+  that the evaluated volume cannot be as constrained as with cloud effects. My solution was to make
+  the sample stride increase polynomially, which works very well as long as the trails are lower opcaity than
+  the rest of the effect. Which is always the case for auroras.
 
-	After that, there were some issues with getting the correct emission curves and removing banding at lowered
-	sample densities, this was fixed by a combination of sample number influenced dithering and slight sample blending.
+  After that, there were some issues with getting the correct emission curves and removing banding at lowered
+  sample densities, this was fixed by a combination of sample number influenced dithering and slight sample blending.
 
-	N.B. the base setup is from an old shader and ideally the effect would take an arbitrary ray origin and
-	direction. But this was not required for this demo and would be trivial to fix.
+  N.B. the base setup is from an old shader and ideally the effect would take an arbitrary ray origin and
+  direction. But this was not required for this demo and would be trivial to fix.
 */
 
 #define time iTime
@@ -48,11 +48,11 @@ float triNoise2d(in vec2 p, float spd)
 {
     float z=1.8;
     float z2=2.5;
-	float rz = 0.;
+  float rz = 0.;
     p *= mm2(p.x*0.06);
     vec2 bp = p;
-	for (float i=0.; i<5.; i++ )
-	{
+  for (float i=0.; i<5.; i++ )
+  {
         vec2 dg = tri2(bp*1.85)*.75;
         dg *= mm2(time*spd);
         p -= dg/z2;
@@ -60,11 +60,11 @@ float triNoise2d(in vec2 p, float spd)
         bp *= 1.3;
         z2 *= .45;
         z *= .42;
-		p *= 1.21 + (rz-1.0)*.02;
+    p *= 1.21 + (rz-1.0)*.02;
         
         rz += tri(p.x+tri(p.y))*z;
         p*= -m2;
-	}
+  }
     return clamp(1./pow(rz*29., 1.3),0.,.55);
 }
 
@@ -79,7 +79,7 @@ vec4 aurora(vec3 ro, vec3 rd)
         float of = 0.006*hash21(gl_FragCoord.xy)*smoothstep(0.,15., i);
         float pt = ((.8+pow(i,1.4)*.002)-ro.y)/(rd.y*2.+0.4);
         pt -= of;
-    	vec3 bpos = ro + pt*rd;
+      vec3 bpos = ro + pt*rd;
         vec2 p = bpos.zx;
         float rzt = triNoise2d(p, 0.06);
         vec4 col2 = vec4(0,0,0, rzt);
@@ -117,9 +117,9 @@ vec3 nmzHash33(vec3 q)
 
 void mainImage( out vec4 fragColor, in vec2 fragCoord )
 {
-	vec2 q = fragCoord.xy / iResolution.xy;
+  vec2 q = fragCoord.xy / iResolution.xy;
     vec2 p = q - 0.5;
-	p.x*=iResolution.x/iResolution.y;
+  p.x*=iResolution.x/iResolution.y;
     
     vec3 ro = vec3(0,0,-6.7);
     vec3 rd = normalize(vec3(p,1.3));
@@ -134,5 +134,5 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     vec4 aur = smoothstep(0.,1.5,aurora(ro,rd));
     col = col*(1.-aur.a) + aur.rgb;
 
-	fragColor = vec4(col, 1.);
+  fragColor = vec4(col, 1.);
 }
