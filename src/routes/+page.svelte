@@ -24,7 +24,7 @@
       they work (like the aurora background!)
     </p>
     <p>
-      The source code for my site isn't publically available yet, but when it is
+      The source code for my site isn't publicly available yet, but when it is
       it'll be licensed under GPLv3 with exceptions noted. Some of the assets on
       this site aren't actually mine though, but they're all listed <a
         href="/external-assets">here</a
@@ -37,11 +37,22 @@
     </p>
     <p>:3</p>
   </div>
+
+  <div class="webring-container">
+    <script src="https://transring.neocities.org/ring.js"></script>
+  </div>
 </ContentWrapper>
 
 <Footer />
 
 <style>
+  .webring-container {
+    text-align: center;
+    font-family: "Iosevka SS05 Web";
+    font-size: 24px;
+    color: white;
+  }
+
   .content {
     margin-left: auto;
     margin-right: auto;
