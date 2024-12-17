@@ -5,19 +5,6 @@
 
 <svelte:head>
   <title>Mel's site</title>
-  <style>
-    .content {
-      margin-left: auto;
-      margin-right: auto;
-      padding-top: 10px;
-
-      font-family: "Iosevka SS05 Web", monospace;
-      font-size: 24px;
-    }
-    sup {
-      font-size: 16px;
-    }
-  </style>
 </svelte:head>
 
 <div class="content">
@@ -36,7 +23,7 @@
     The source code for my site isn't publically available yet, but when it is
     it'll be licensed under GPLv3 with exceptions noted. Some of the assets on
     this site aren't actually mine though, but they're all listed <a
-      href="/assets">here</a
+      href="/external-assets">here</a
     >!
   </p>
   <p>
@@ -48,3 +35,17 @@
 </div>
 
 <Footer />
+
+<style>
+  .content {
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 10px;
+
+    font-family: "Iosevka SS05 Web", monospace;
+    font-size: 24px;
+  }
+  sup {
+    font-size: 16px;
+  }
+</style>

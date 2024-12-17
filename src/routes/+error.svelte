@@ -1,8 +1,5 @@
 <script>
   import { page } from "$app/stores";
-  import Background from "$lib/aurora.svelte";
-  import Navbar from "$lib/navbar.svelte";
-  import Header from "$lib/header.svelte";
 </script>
 
 <svelte:head>
@@ -13,14 +10,11 @@
     }
 
     h1 {
+      font-family: "Iosevka SS05 Web", monospace;
       text-align: center;
     }
   </style>
 </svelte:head>
-
-<Header />
-<Background />
-<Navbar />
 
 <!-- yeah i dunno anymore lmao-->
 <div style="display: table; margin:auto">
