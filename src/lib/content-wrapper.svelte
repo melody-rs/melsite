@@ -28,7 +28,7 @@
     padding: 10px;
     padding-top: 0px;
     overflow-y: auto;
-    max-height: calc(100vh - 300px);
+    max-height: calc(100vh - 200px);
     mask-image: linear-gradient(
       to bottom,
       #ffff 10px,
