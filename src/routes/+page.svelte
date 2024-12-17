@@ -51,6 +51,7 @@
     font-family: "Iosevka SS05 Web";
     font-size: 24px;
     color: white;
+    padding-bottom: 40px;
   }
 
   .content {

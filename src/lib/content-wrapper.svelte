@@ -6,7 +6,6 @@
   <div class="content-wrapper content-wrapper-inner">
     {@render children()}
   </div>
-  <div class="border-fade"></div>
 </div>
 <div class="border-fade gradient-background"></div>
 
@@ -29,6 +28,13 @@
     padding: 10px;
     padding-top: 0px;
     overflow-y: auto;
+    max-height: calc(100vh - 300px);
+    mask-image: linear-gradient(
+      to bottom,
+      #ffff 10px,
+      #ffff calc(100% - 50px),
+      #fff0 100%
+    );
   }
 
   .border-fade {
