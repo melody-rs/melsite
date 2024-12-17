@@ -4,7 +4,6 @@
   import Navbar from "$lib/navbar.svelte";
   import Aurora from "$lib/aurora.svelte";
   import Header from "$lib/header.svelte";
-  import Footer from "$lib/footer.svelte";
 </script>
 
 <Aurora />
@@ -19,8 +18,6 @@
   <div class="border-fade"></div>
 </div>
 <div class="border-fade gradient-background"></div>
-
-<Footer />
 
 <style>
   .content-wrapper {
