@@ -1,25 +1,15 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-
-  onMount(() => {
-    const navbar = <HTMLElement>document.getElementById("main_navbar");
-    for (const element of navbar.children) {
-      let link = <HTMLAnchorElement>element;
-      if (link.href == document.URL) {
-        link.classList.add("current_nav_item");
-      }
-    }
-  });
+  import Navitem from "./navitem.svelte";
 </script>
 
 <!-- this makes it shrink to fit and centered? -->
 <div style="display: table; margin:auto">
   <nav id="main_navbar">
-    <a class="nav_item" href="/">Home</a>
-    <a class="nav_item" href="/blog">Blog</a>
-    <a class="nav_item" href="/projects">Projects</a>
-    <a class="nav_item" href="/gadgets">Gadgets</a>
-    <a class="nav_item" href="/trinkets">Trinkets</a>
+    <Navitem href="/" name="Home" />
+    <Navitem href="/blog" name="Blog" />
+    <Navitem href="/projects" name="Projects" />
+    <Navitem href="/gadgets" name="Gadgets" />
+    <Navitem href="/trinkets" name="Trinkets" />
   </nav>
 </div>
 
@@ -37,16 +27,5 @@
     image-rendering: pixelated;
     background: rgba(3, 1, 4, 0.78);
     background-clip: content-box;
-  }
-
-  .nav_item {
-    font-family: "Iosevka SS05 Web", monospace;
-
-    color: #ffffff;
-    margin: 8px;
-    font-size: 32px;
-  }
-  .nav_item:hover {
-    color: #843dff;
   }
 </style>
