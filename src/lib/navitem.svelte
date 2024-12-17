@@ -3,11 +3,10 @@
   let { href, name } = $props();
 </script>
 
-{#if href == page.url.pathname}
-  <a class="active_item nav_item" {href}>{name}</a>
-{:else}
-  <a class="inactive_item nav_item" {href}>{name}</a>
-{/if}
+<a
+  class="{href == page.url.pathname ? 'active_item' : 'inactive_item'} nav_item"
+  {href}>{name}</a
+>
 
 <style>
   .nav_item {

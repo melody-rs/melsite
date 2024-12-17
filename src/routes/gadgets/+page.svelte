@@ -1,14 +1,19 @@
 <script>
+  import ContentWrapper from "$lib/content-wrapper.svelte";
+  import Navbar from "$lib/navbar.svelte";
 </script>
 
 <svelte:head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gadgets</title>
+  <title>Projects</title>
 </svelte:head>
 
-<div class="center-div-body">
-  <p>TODO!</p>
-</div>
+<ContentWrapper>
+  <Navbar />
+  <div class="center-div-body">
+    <p>TODO!</p>
+  </div>
+</ContentWrapper>
 
 <style>
   .center-div-body {

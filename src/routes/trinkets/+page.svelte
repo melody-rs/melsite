@@ -1,4 +1,6 @@
 <script>
+  import ContentWrapper from "$lib/content-wrapper.svelte";
+  import Navbar from "$lib/navbar.svelte";
 </script>
 
 <svelte:head>
@@ -6,9 +8,12 @@
   <title>Trinkets</title>
 </svelte:head>
 
-<div class="center-div-body">
-  <p>TODO!</p>
-</div>
+<ContentWrapper>
+  <Navbar />
+  <div class="center-div-body">
+    <p>TODO!</p>
+  </div>
+</ContentWrapper>
 
 <style>
   .center-div-body {

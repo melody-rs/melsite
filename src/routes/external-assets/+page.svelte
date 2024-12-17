@@ -1,4 +1,6 @@
 <script>
+  import ContentWrapper from "$lib/content-wrapper.svelte";
+  import Navbar from "$lib/navbar.svelte";
   import SmallBlinkies from "$lib/small-blinkies.svelte";
 </script>
 
@@ -7,68 +9,72 @@
   <title>Assets</title>
 </svelte:head>
 
-<div class="container">
-  <section class="asset-section">
-    <img
-      class="asset-img"
-      src="/aurora/0124-stars.gif"
-      alt="an old 90s style gif of stars"
-    />
-    <span>
-      Star background <br />
-      <a href="https://blinkies.cafe/archive">blinkies.cafe</a>
-    </span>
-  </section>
-  <section class="asset-section">
-    <span>
-      Aurora shader <br />
-      <a href="https://www.shadertoy.com/view/XtGGRt">shadertoy.com</a>
-    </span>
-    <img
-      class="asset-img"
-      src="/credits/aurora.png"
-      alt="a render of an aurora"
-    />
-  </section>
-  <section class="asset-section">
-    <div class="blinkie-container">
-      <SmallBlinkies />
-    </div>
-    <span style="font-size: 18px">
-      Blinkies <br />
-      <a href="https://blinkies.cafe">blinkies.cafe</a> <br />
-      callisto blinkie <br />
-      <a href="https://callistoAshley.dev">callistoAshley.dev</a> <br />
-      queer coded & nap time blinkie <br />
-      <a href="https://plasticdino.neocities.org/">
-        plasticdino.neocities.org</a
-      >
-    </span>
-  </section>
-  <section class="asset-section">
-    <span>
-      Iosevka SS05 <br />
-      <a href="https://typeof.net/Iosevka/">typeof.net</a>
-    </span>
-    <!-- TODO alt text for this -->
-    <img class="asset-img" src="/credits/iosevka.png" alt="" />
-  </section>
-  <section class="asset-section">
-    <img
-      class="asset-img"
-      src="/favicon.png"
-      style="image-rendering: pixelated; size: 120px;"
-      alt=""
-    />
-    <span>
-      Trans heart <br />
-      <a
-        href="https://discord.com/channels/403698615446536203/586655711564529687/901636858742706188"
-        >Celeste discord</a
-      >
-    </span>
-  </section>
-</div>
+<ContentWrapper>
+  <Navbar />
+
+  <div class="container">
+    <section class="asset-section">
+      <img
+        class="asset-img"
+        src="/aurora/0124-stars.gif"
+        alt="an old 90s style gif of stars"
+      />
+      <span>
+        Star background <br />
+        <a href="https://blinkies.cafe/archive">blinkies.cafe</a>
+      </span>
+    </section>
+    <section class="asset-section">
+      <span>
+        Aurora shader <br />
+        <a href="https://www.shadertoy.com/view/XtGGRt">shadertoy.com</a>
+      </span>
+      <img
+        class="asset-img"
+        src="/credits/aurora.png"
+        alt="a render of an aurora"
+      />
+    </section>
+    <section class="asset-section">
+      <div class="blinkie-container">
+        <SmallBlinkies />
+      </div>
+      <span style="font-size: 18px">
+        Blinkies <br />
+        <a href="https://blinkies.cafe">blinkies.cafe</a> <br />
+        callisto blinkie <br />
+        <a href="https://callistoAshley.dev">callistoAshley.dev</a> <br />
+        queer coded & nap time blinkie <br />
+        <a href="https://plasticdino.neocities.org/">
+          plasticdino.neocities.org</a
+        >
+      </span>
+    </section>
+    <section class="asset-section">
+      <span>
+        Iosevka SS05 <br />
+        <a href="https://typeof.net/Iosevka/">typeof.net</a>
+      </span>
+      <!-- TODO alt text for this -->
+      <img class="asset-img" src="/credits/iosevka.png" alt="" />
+    </section>
+    <section class="asset-section">
+      <img
+        class="asset-img"
+        src="/favicon.png"
+        style="image-rendering: pixelated; size: 120px;"
+        alt=""
+      />
+      <span>
+        Trans heart <br />
+        <a
+          href="https://discord.com/channels/403698615446536203/586655711564529687/901636858742706188"
+          >Celeste discord</a
+        >
+      </span>
+    </section>
+  </div>
+</ContentWrapper>
 
 <style>
   .container {

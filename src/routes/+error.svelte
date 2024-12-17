@@ -1,5 +1,7 @@
 <script>
   import { page } from "$app/stores";
+  import ContentWrapper from "$lib/content-wrapper.svelte";
+  import Navbar from "$lib/navbar.svelte";
 </script>
 
 <svelte:head>
@@ -16,16 +18,19 @@
   </style>
 </svelte:head>
 
-<!-- yeah i dunno anymore lmao-->
-<div style="display: table; margin:auto">
-  <div class="actual-content">
-    <h1>{$page.status} {$page.error?.message}</h1>
-    <a href="https://http.cat">
-      <img
-        src="https://http.cat/{$page.status}"
-        alt="A picture of a cat with the text {$page.status} 
+<ContentWrapper>
+  <Navbar />
+  <!-- yeah i dunno anymore lmao-->
+  <div style="display: table; margin:auto">
+    <div class="actual-content">
+      <h1>{$page.status} {$page.error?.message}</h1>
+      <a href="https://http.cat">
+        <img
+          src="https://http.cat/{$page.status}"
+          alt="A picture of a cat with the text {$page.status} 
   {$page.error?.message} underneath it"
-      />
-    </a>
+        />
+      </a>
+    </div>
   </div>
-</div>
+</ContentWrapper>
