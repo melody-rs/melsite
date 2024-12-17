@@ -37,6 +37,7 @@
   .content-wrapper-inner {
     padding: 10px;
     padding-top: 0px;
+    overflow-y: auto;
   }
 
   .border-fade {

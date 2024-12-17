@@ -14,7 +14,7 @@
     font-family: "Iosevka SS05 Web", monospace;
 
     margin: 8px;
-    font-size: 32px;
+    font-size: min(6vw, 32px);
   }
 
   .nav_item:hover {

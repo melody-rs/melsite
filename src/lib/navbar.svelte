@@ -16,13 +16,14 @@
 <style>
   nav {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
 
     flex: 1 1 auto;
 
     margin-top: 8px;
 
-    border: 32px solid;
+    border: min(6vw, 32px) solid;
     border-image: url("/border.png") 8 stretch;
     image-rendering: pixelated;
     background: rgba(3, 1, 4, 0.78);

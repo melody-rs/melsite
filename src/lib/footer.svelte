@@ -55,5 +55,8 @@
 
     background-color: rgba(6, 6, 12, 0.9);
     border-top: 9px double rgba(85, 0, 120, 1);
+
+    overflow-y: auto;
+    max-height: 64px;
   }
 </style>
