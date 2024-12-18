@@ -174,7 +174,7 @@
       time += delta;
 
       // only render at ~30fps
-      if (delta < 1 / 30) {
+      if (delta < 1 / 20) {
         window.requestAnimationFrame(draw);
         return;
       }
