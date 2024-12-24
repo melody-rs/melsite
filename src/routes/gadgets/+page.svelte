@@ -13,14 +13,15 @@
   <div class="container">
     <section class="gadget-section">
       <span>
-        <h1>
-          <img class="logo-svg" alt="" src="/logos/svelte.svg" /><a
-            href="/gadgets/guestbook">Guestbook</a
-          >
+        <h1 style="text-align: center;">
+          <img class="logo-svg" alt="" src="/logos/svelte.svg" />
+          <a href="/gadgets/guestbook">Guestbook</a>
         </h1>
-        A little list of people who've visited this site!
+        A little list of people who've visited this site! It's nothing special and
+        is written entirely in Svelte/Typescript. It's one of the first things I
+        tackled after laying out most of the site, primarily to learn how to send
+        stuff between the client and server, as well as perform basic validation/filtering.
       </span>
-      <img class="gadget-img" src="/files/guestbook.png" alt="" />
     </section>
   </div>
   <div style="padding-bottom: 20px"></div>
@@ -40,7 +41,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-top: 64px;
   }
   .gadget-section {
     display: flex;
@@ -51,26 +51,11 @@
     padding: 1rem;
   }
 
-  .gadget-img {
-    height: 320px;
-    /* Use transparent so the background image is visible */
-    border: 5px solid transparent;
-    padding: 2px;
-    border-radius: 20px;
-    background-image: linear-gradient(
-      to right,
-      rgb(190, 50, 255),
-      rgb(89, 0, 255)
-    );
-    background-origin: border-box;
-    background-clip: padding-box, border-box;
-  }
-
   span {
     font-family: "Iosevka SS05 Web", monospace;
     color: white;
     font-size: 18px;
     font-weight: 300;
-    margin: 16px;
+    margin-bottom: 16px;
   }
 </style>
