@@ -24,8 +24,8 @@
       they work (like the aurora background!)
     </p>
     <p>
-      This site was designed on a 1440p display. If you're on mobile, here be
-      dragons
+      This site was designed on a 1440p display. I try my best to make it work,
+      but if you're on mobile, here be dragons
     </p>
     <p>
       The source code for my site isn't publicly available yet, but when it is
