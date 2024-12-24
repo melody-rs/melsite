@@ -11,7 +11,10 @@
 <ContentWrapper>
   <Navbar />
   <div class="center-div-body">
-    <p>TODO!</p>
+    <p>
+      This page is <i>supposed</i> to have some little trinkets you can download
+      and do whatever you want with, except I haven't made any yet :P
+    </p>
   </div>
 </ContentWrapper>
 
@@ -28,7 +31,7 @@
 
   p {
     font-family: "Iosevka SS05 Web", monospace;
-    font-size: 32px;
+    font-size: 24px;
     font-weight: 300;
   }
 </style>
