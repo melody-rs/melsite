@@ -5,7 +5,7 @@
   import Header from "$lib/header.svelte";
 </script>
 
-<!-- <Aurora /> -->
+<Aurora />
 <Header />
 
 {@render children()}

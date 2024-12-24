@@ -1,10 +1,19 @@
 <script lang="ts">
   import { page } from "$app/state";
   let { href, name } = $props();
+
+  function is_under_href(href: string): boolean {
+    const paths = page.url.pathname.split("/");
+    console.log(paths);
+
+    if (href == "/" && paths[1] == "home") return true;
+    if ("/" + paths[1] == href) return true;
+    return false;
+  }
 </script>
 
 <a
-  class="{href == page.url.pathname ? 'active_item' : 'inactive_item'} nav_item"
+  class="{is_under_href(href) ? 'active_item' : 'inactive_item'} nav_item"
   {href}>{name}</a
 >
 

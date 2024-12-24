@@ -31,13 +31,13 @@
       The source code for my site isn't publicly available yet, but when it is
       it'll be licensed under GPLv3 with exceptions noted. Some of the assets on
       this site aren't actually mine though, but they're all listed <a
-        href="/external-assets">here</a
+        href="/home/external-assets">here</a
       >!
     </p>
     <p>
-      Please <a href="/contact">reach out to me</a> if you have problems viewing
-      this site, <i>especially</i> accessibility concerns, or if you just like a
-      thing I've made!
+      Please <a href="/home/contact">reach out to me</a> if you have problems
+      viewing this site, <i>especially</i> accessibility concerns, or if you just
+      like a thing I've made!
     </p>
     <p>:3</p>
   </div>
