@@ -23,4 +23,5 @@ jobs:
         run: |
           bun --bun run build
 
-      - run: bunx pm2 restart melsite # Restart site
+      # Because of some sudoers shenanigans this should work fine...?
+      - run: sudo systemctl restart melsite
