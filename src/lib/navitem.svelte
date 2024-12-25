@@ -4,7 +4,6 @@
 
   function is_under_href(href: string): boolean {
     const paths = page.url.pathname.split("/");
-    console.log(paths);
 
     if (href == "/" && paths[1] == "home") return true;
     if ("/" + paths[1] == href) return true;

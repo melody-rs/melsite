@@ -23,13 +23,10 @@ export const actions = {
     if (name === "" || name === null) {
       return fail(400, { name: true, missing: true })
     }
-
     let text = <string | null>data.get("text");
     if (text === "" || text === null) {
       return fail(400, { text: true, missing: true })
     }
-    const regex = new RegExp("[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)");
-    text.replaceAll(regex, "[HYPERLINK BLOCKED]")
 
     let website = <string | null>data.get("website");
     if (website === "") website = null;
@@ -50,7 +47,6 @@ export const actions = {
       website,
       date: new Date(),
     };
-    console.log(entry);
     await prisma.guestbookEntry.create({ data: entry });
   }
 } satisfies Actions;
