@@ -12,7 +12,6 @@
   <Navbar />
 
   <div class="content">
-    <p>Please work</p>
     <p>
       Hi! I'm Melody<sup>(she/her nya/nya's)</sup>, and this is my website! I'm
       a transfem aroace lesbian, who codes for fun and tries to makes games
