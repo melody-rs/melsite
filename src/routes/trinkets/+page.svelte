@@ -15,6 +15,13 @@
       This page is <i>supposed</i> to have some little trinkets you can download
       and do whatever you want with, except I haven't made any yet :P
     </p>
+    <embed
+      class="lang-stats"
+      src="https://wakatime.com/share/@melody_rs/f5778ab6-7873-48eb-9269-3c731c9c25b5.svg"
+    />
+    <embed
+      src="https://wakatime.com/share/@melody_rs/c9265dee-f1c5-4740-8c27-530044fbc5c6.svg"
+    />
   </div>
 </ContentWrapper>
 
@@ -27,6 +34,11 @@
     /* Center it */
     align-items: center;
     justify-content: center;
+  }
+
+  .lang-stats {
+    border-radius: 15px;
+    max-width: 730px;
   }
 
   p {
