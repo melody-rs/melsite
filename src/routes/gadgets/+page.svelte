@@ -11,6 +11,20 @@
 <ContentWrapper>
   <Navbar />
   <div class="container">
+    <div style="padding-top:30px"></div>
+    <section class="gadget-section">
+      <span>
+        Gadgets are random things that run in your browser, alongside an
+        accompanying blog post (if it's not too simple). Gadgets are designed
+        primarily to show off what I'm capable of coding, as well as to be fun
+        little things you can mess around with. At the moment, I'm working on a
+        fluid sim, but I'm hoping to put some bevy games up here!
+
+        <i>If</i> I can somehow run an emulator I'm hoping to put my hobby OS on
+        here too!
+      </span>
+    </section>
+
     <section class="gadget-section">
       <span>
         <h1 style="text-align: center;">
@@ -48,7 +62,12 @@
     justify-content: center;
     align-items: center;
     gap: 2rem;
-    padding: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  h1 {
+    margin-top: 0;
   }
 
   span {
