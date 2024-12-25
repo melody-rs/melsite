@@ -22,3 +22,5 @@ jobs:
           BASE_PATH: '/${{ github.event.repository.name }}'
         run: |
           bun --bun run build
+
+      - run: bunx pm2 restart melsite # Restart site
