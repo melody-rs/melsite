@@ -23,5 +23,4 @@ vite.config.ts.timestamp-*
 # Rust build folder
 target/
 
-prisma/**
-!prisma/schema.prisma
+prisma/dev.db
