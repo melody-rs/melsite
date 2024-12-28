@@ -17,6 +17,14 @@
       This page is <i>supposed</i> to have some little trinkets you can download
       and do whatever you want with, except I haven't made any yet :P
     </p>
+    <p>
+      Site build status:
+      <img
+        src="https://github.com/melody-rs/melsite/actions/workflows/ci.yml/badge.svg"
+        alt="A label showing the status of the site's CI"
+        style="vertical-align:middle"
+      />
+    </p>
     <embed
       class="lang-stats"
       src="https://wakatime.com/share/@melody_rs/f5778ab6-7873-48eb-9269-3c731c9c25b5.svg"
