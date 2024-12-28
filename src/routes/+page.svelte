@@ -2,6 +2,7 @@
   import Footer from "$lib/footer.svelte";
   import Navbar from "$lib/navbar.svelte";
   import ContentWrapper from "$lib/content-wrapper.svelte";
+  import Skip from "$lib/skip.svelte";
 </script>
 
 <svelte:head>
@@ -9,9 +10,10 @@
 </svelte:head>
 
 <ContentWrapper>
+  <Skip />
   <Navbar />
 
-  <div class="content">
+  <div class="content" id="main">
     <p>
       Hi! I'm Melody<sup>(she/her nya/nya's)</sup>, and this is my website! I'm
       a transfem aroace lesbian, who codes for fun and tries to makes games

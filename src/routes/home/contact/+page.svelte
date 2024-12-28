@@ -1,6 +1,7 @@
 <script>
   import ContentWrapper from "$lib/content-wrapper.svelte";
   import Navbar from "$lib/navbar.svelte";
+  import Skip from "$lib/skip.svelte";
 </script>
 
 <svelte:head>
@@ -27,8 +28,9 @@
 </svelte:head>
 
 <ContentWrapper>
+  <Skip />
   <Navbar />
-  <div class="center-div-body">
+  <div class="center-div-body" id="main">
     <p style="margin-top: 48px;">
       email: <a href="mailto:melody@melody-is.gay">melody@melody-is.gay</a>
     </p>

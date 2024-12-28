@@ -1,6 +1,7 @@
 <script>
   import ContentWrapper from "$lib/content-wrapper.svelte";
   import Navbar from "$lib/navbar.svelte";
+  import Skip from "$lib/skip.svelte";
 </script>
 
 <svelte:head>
@@ -9,8 +10,9 @@
 </svelte:head>
 
 <ContentWrapper>
+  <Skip />
   <Navbar />
-  <div class="center-div-body">
+  <div class="center-div-body" id="main">
     <p>
       This page is <i>supposed</i> to have some little trinkets you can download
       and do whatever you want with, except I haven't made any yet :P

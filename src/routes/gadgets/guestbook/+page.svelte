@@ -1,6 +1,7 @@
 <script lang="ts">
   import ContentWrapper from "$lib/content-wrapper.svelte";
   import Navbar from "$lib/navbar.svelte";
+  import Skip from "$lib/skip.svelte";
   import type { ActionData, PageData } from "./$types";
 
   let { data, form }: { data: PageData; form: ActionData } = $props();
@@ -19,6 +20,7 @@
 </svelte:head>
 
 <ContentWrapper>
+  <Skip />
   <Navbar />
 
   <form method="POST" name="guestbook">
@@ -76,10 +78,12 @@
     </div>
   </form>
 
+  <div id="main"></div>
+
   {#each data.entries as entry, index}
     <div class="guestbook-entry">
       <!-- no idea why span works... -->
-      <span>
+      <span role="heading" aria-level="1">
         {entry.name}
       </span>
       {#if entry.website !== "" && entry.website !== null}
@@ -97,7 +101,7 @@
         </a>
       {/if}
       <!-- silly hack to get rid of commas -->
-      <span class="entry-date">
+      <span class="entry-date" role="heading" aria-level="1">
         {date_format.format(entry.date).replace(/,/, "")}
       </span>
       <p>{entry.text}</p>

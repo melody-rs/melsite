@@ -1,6 +1,7 @@
 <script>
   import ContentWrapper from "$lib/content-wrapper.svelte";
   import Navbar from "$lib/navbar.svelte";
+  import Skip from "$lib/skip.svelte";
 </script>
 
 <svelte:head>
@@ -9,8 +10,9 @@
 </svelte:head>
 
 <ContentWrapper>
+  <Skip />
   <Navbar />
-  <div class="container">
+  <div class="container" id="main">
     <div style="padding-top:30px"></div>
     <section class="gadget-section">
       <span>

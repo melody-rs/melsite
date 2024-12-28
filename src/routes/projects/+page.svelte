@@ -1,6 +1,7 @@
 <script>
   import ContentWrapper from "$lib/content-wrapper.svelte";
   import Navbar from "$lib/navbar.svelte";
+  import Skip from "$lib/skip.svelte";
   import SmallBlinkies from "$lib/small-blinkies.svelte";
 </script>
 
@@ -10,9 +11,10 @@
 </svelte:head>
 
 <ContentWrapper>
+  <Skip />
   <Navbar />
 
-  <div class="container">
+  <div class="container" id="main">
     <section class="project-section">
       <!-- TODO alt text -->
       <img class="project-img" src="/projects/fm.jpg" alt="" />
