@@ -2,12 +2,9 @@
   let { children } = $props();
 </script>
 
-<div class="content-wrapper content-wrapper-outer">
-  <div class="content-wrapper content-wrapper-inner">
-    {@render children()}
-  </div>
+<div class="content-wrapper">
+  {@render children()}
 </div>
-<div class="border-fade gradient-background"></div>
 
 <style>
   .content-wrapper {
@@ -18,8 +15,20 @@
     padding: 3px;
     padding-top: 0px;
 
-    border-left: 3px solid rgba(85, 0, 120, 1);
-    border-right: 3px solid rgba(85, 0, 120, 1);
+    border-left: 9px double rgba(85, 0, 120, 1);
+    border-right: 9px double rgba(85, 0, 120, 1);
+
+    background-color: rgba(6, 6, 6, 0.9);
+    padding: 10px;
+    padding-top: 0px;
+    overflow-y: auto;
+    height: calc(100vh - 100px);
+    mask-image: linear-gradient(
+      to bottom,
+      #ffff 10px,
+      #ffff calc(100% - 50px),
+      #fff0 100%
+    );
   }
   .content-wrapper-outer {
     background-color: rgba(6, 6, 6, 0.9);
