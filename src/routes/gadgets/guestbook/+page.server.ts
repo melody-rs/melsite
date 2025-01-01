@@ -20,6 +20,10 @@ export const actions = {
     if (name === "" || name === null) {
       return fail(400, { name: true, missing: true })
     }
+    if (name.length > 100) {
+      return fail(400, { text: true, too_long: true })
+    }
+
     let text = <string | null>data.get("text");
     if (text === "" || text === null) {
       return fail(400, { text: true, missing: true })
@@ -31,7 +35,12 @@ export const actions = {
     let website = <string | null>data.get("website");
     if (website === "") website = null;
 
+
     if (website) {
+      if (website.length > 100) {
+        return fail(400, { text: true, too_long: true })
+      }
+
       let url = URL.parse(website);
       if (!url) return fail(400, { website: true, invalid: true });
 

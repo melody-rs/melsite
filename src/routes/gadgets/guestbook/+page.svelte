@@ -48,6 +48,7 @@
             class="form-input form-textbox"
             style="width:150px"
             required
+            maxlength="100"
             placeholder="Melody"
           />
         </div>
@@ -59,6 +60,7 @@
             class="form-input form-textbox"
             style="width:300px"
             id="website_input"
+            maxlength="100"
             placeholder="https://melody-is.gay"
           />
         </div>
