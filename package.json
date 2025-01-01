@@ -21,8 +21,12 @@
   },
   "type": "module",
   "dependencies": {
+    "@oslojs/crypto": "^1.0.1",
+    "@oslojs/encoding": "^1.1.0",
     "@prisma/client": "^6.1.0",
+    "arctic": "^2.3.3",
     "gifuct-js": "^2.1.2",
+    "marked": "^15.0.4",
     "prisma": "^6.1.0"
   }
 }

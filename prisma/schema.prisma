@@ -28,7 +28,25 @@ model Blogpost {
 }
 
 model Comment {
-  id      Int       @id @default(autoincrement())
-  post    Blogpost? @relation(fields: [post_id], references: [id])
-  post_id Int?
+  id      Int @id @default(autoincrement())
+  post_id Int
+
+  post Blogpost @relation(fields: [post_id], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id Int @id @default(autoincrement())
+
+  github_id Int    @unique
+  username  String
+
+  session Session[]
+}
+
+model Session {
+  id         String   @id
+  user_id    Int
+  expires_at DateTime
+
+  user User @relation(references: [id], fields: [user_id], onDelete: Cascade)
 }
