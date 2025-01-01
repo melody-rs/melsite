@@ -23,7 +23,7 @@
   <Skip />
   <Navbar />
 
-  <form method="POST" name="guestbook">
+  <form method="POST" action="?/create" name="guestbook">
     <div class="form-container">
       {#if form?.missing && form.name}
         <p class="form-error">No name provided!</p>
@@ -33,6 +33,18 @@
       {/if}
       {#if form?.invalid && form.website}
         <p class="form-error">The website was invalid! (Missing https?)</p>
+      {/if}
+      {#if form?.invalid && form.too_long}
+        <p class="form-error">Your text was too long!</p>
+      {/if}
+
+      {#if form?.no_perms}
+        <p class="form-error">
+          You do not have permission to perform this action.
+        </p>
+      {/if}
+      {#if form?.invalid_id}
+        <p class="form-error">Invalid id.</p>
       {/if}
 
       <div class="small-form-container">
@@ -66,7 +78,7 @@
         required
         placeholder="Yep, this is a guestbook"
         minlength="1"
-        maxlength="2000"
+        maxlength="500"
       ></textarea>
       <!-- eugh the css syntax for this SUCKS -->
       <input
@@ -85,7 +97,20 @@
       <!-- no idea why span works... -->
       <span role="heading" aria-level="1">
         {entry.name}
+
+        {#if data.is_admin}
+          <form method="POST" action="?/delete" style="display:inline">
+            <input type="hidden" name="entry_id" value={entry.id} />
+            <input
+              type="submit"
+              value="Delete"
+              class="form-input submit-button"
+              style="padding: 2px 8px 2px 8px"
+            />
+          </form>
+        {/if}
       </span>
+
       {#if entry.website !== "" && entry.website !== null}
         <a
           href={entry.website}
@@ -100,6 +125,7 @@
           />
         </a>
       {/if}
+
       <!-- silly hack to get rid of commas -->
       <span class="entry-date" role="heading" aria-level="1">
         {date_format.format(entry.date).replace(/,/, "")}
