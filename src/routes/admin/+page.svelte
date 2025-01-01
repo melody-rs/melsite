@@ -15,7 +15,8 @@
   <div class="center-div-body" id="main">
     <p>
       Hello! If you somehow got to this page <i>and you're not an admin</i> please
-      tell me!
+      tell me! I know you probably won't but aside from wiping data off my site you
+      can't really do much damage :P
     </p>
     <p>
       Anyway, here's some dashboard stuff to manage db things (I trust you know
