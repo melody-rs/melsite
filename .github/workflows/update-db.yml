@@ -11,6 +11,9 @@ jobs:
   build_site:
     runs-on: [self-hosted]
     steps:
+      # Stop site to prevent interfering with the migration
+      - run: sudo systemctl stop melsite
+
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -23,3 +26,6 @@ jobs:
         run: bunx prisma migrate deploy
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+      # Bring site back up again
+      - run: sudo systemctl start melsite

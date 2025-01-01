@@ -6,9 +6,12 @@ on:
   workflow_dispatch:
 
 jobs:
-  build_site:
+  update-db:
     runs-on: [self-hosted]
     steps:
+      # Stop site to prevent interfering with the CI
+      - run: sudo systemctl stop melsite
+
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -25,5 +28,5 @@ jobs:
         run: |
           bun --bun run build
 
-      # Because of some sudoers shenanigans this should work fine...?
-      - run: sudo systemctl restart melsite
+      # Bring site back up again
+      - run: sudo systemctl start melsite
