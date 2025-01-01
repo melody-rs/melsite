@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Navitem from "./navitem.svelte";
+  import Navitem from "$lib/components/navbar/navitem.svelte";
 </script>
 
 <!-- this makes it shrink to fit and centered? -->

@@ -1,5 +1,5 @@
 <script>
-  import SmallBlinkies from "./small-blinkies.svelte";
+  import SmallBlinkies from "$lib/components/small-blinkies.svelte";
 </script>
 
 <footer>

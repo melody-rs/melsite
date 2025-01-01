@@ -1,8 +1,8 @@
 <script>
-  import Footer from "$lib/footer.svelte";
-  import Navbar from "$lib/navbar.svelte";
-  import ContentWrapper from "$lib/content-wrapper.svelte";
-  import Skip from "$lib/skip.svelte";
+  import Footer from "$lib/components/footer.svelte";
+  import Navbar from "$lib/components/navbar.svelte";
+  import ContentWrapper from "$lib/components/content-wrapper.svelte";
+  import Skip from "$lib/a11y/skip.svelte";
 </script>
 
 <svelte:head>

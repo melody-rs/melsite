@@ -1,7 +1,7 @@
 <script>
   import { page } from "$app/stores";
-  import ContentWrapper from "$lib/content-wrapper.svelte";
-  import Navbar from "$lib/navbar.svelte";
+  import ContentWrapper from "$lib/components/content-wrapper.svelte";
+  import Navbar from "$lib/components/navbar.svelte";
 </script>
 
 <svelte:head>

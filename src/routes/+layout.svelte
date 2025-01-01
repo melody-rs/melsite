@@ -1,8 +1,8 @@
 <script lang="ts">
   let { children } = $props();
 
-  import Aurora from "$lib/aurora.svelte";
-  import Header from "$lib/header.svelte";
+  import Aurora from "$lib/components/aurora.svelte";
+  import Header from "$lib/components/header.svelte";
 </script>
 
 <Aurora />
