@@ -1,4 +1,5 @@
 name: Update DB
+permissions: read-all
 
 on:
   push:
