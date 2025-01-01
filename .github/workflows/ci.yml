@@ -20,6 +20,8 @@ jobs:
       - name: build
         env:
           BASE_PATH: '/${{ github.event.repository.name }}'
+          GITHUB_CLIENT_ID: ${{ secrets.GH_CLIENT_ID }}
+          GITHUB_CLIENT_SECRET: ${{ secrets.GH_CLIENT_SECRET }}
         run: |
           bun --bun run build
 
