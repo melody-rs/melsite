@@ -37,8 +37,9 @@ model Comment {
 model User {
   id Int @id @default(autoincrement())
 
-  github_id Int    @unique
+  github_id Int     @unique
   username  String
+  is_admin  Boolean @default(false) // VERY IMPORTANT
 
   session Session[]
 }

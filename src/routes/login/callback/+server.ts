@@ -55,7 +55,7 @@ export async function GET(event: RequestEvent): Promise<Response> {
   }
 
   const user = await prisma.user.create({
-    data: { username: github_username, github_id: github_user_id }
+    data: { username: github_username, github_id: github_user_id, is_admin: false }
   });
   const session_token = generate_session_token();
   const session = await create_session(session_token, user.id);

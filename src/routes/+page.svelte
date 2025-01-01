@@ -1,8 +1,12 @@
-<script>
+<script lang="ts">
   import Footer from "$lib/components/footer.svelte";
   import Navbar from "$lib/components/navbar.svelte";
   import ContentWrapper from "$lib/components/content-wrapper.svelte";
   import Skip from "$lib/a11y/skip.svelte";
+
+  import type { PageData } from "./$types";
+
+  let { data }: { data: PageData } = $props();
 </script>
 
 <svelte:head>
@@ -14,6 +18,9 @@
   <Navbar />
 
   <div class="content" id="main">
+    {#if data.user !== null}
+      <p>Logged in as {JSON.stringify(data)}</p>
+    {/if}
     <p>
       Hi! I'm Melody<sup>(she/her nya/nya's)</sup>, and this is my website! I'm
       a transfem aroace lesbian, who codes for fun and tries to makes games
