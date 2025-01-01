@@ -1,7 +1,6 @@
 import prisma from "$lib/prisma";
-import { fail, text, type Actions } from "@sveltejs/kit";
+import { fail, type Actions } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
-import type { GuestbookEntry } from "@prisma/client";
 
 export const load: PageServerLoad = async ({ locals }) => {
   const entries = await prisma.guestbookEntry.findMany({
@@ -9,11 +8,11 @@ export const load: PageServerLoad = async ({ locals }) => {
       date: "desc",
     }
   });
-  return { entries, is_admin: locals.user?.is_admin === true }
+  return { entries }
 };
 
 export const actions = {
-  create: async ({ request }) => {
+  default: async ({ request }) => {
     const data = await request.formData();
 
     // TODO check nulls
@@ -50,22 +49,4 @@ export const actions = {
     };
     await prisma.guestbookEntry.create({ data: entry });
   },
-  delete: async ({ request, locals }) => {
-    // deny request if user is not logged in or not an admin
-    if (locals.user === null || !locals.user.is_admin) {
-      return fail(403, { no_perms: true });
-    }
-
-    const data = await request.formData();
-    const raw_id = data.get("entry_id");
-    if (raw_id === null) return fail(400, { invalid_id: true });
-
-    const id = Number(raw_id);
-    // not a valid number.
-    if (isNaN(id)) return fail(400, { invalid_id: true });
-
-    await prisma.guestbookEntry.delete({
-      where: { id: id }
-    })
-  }
 } satisfies Actions;

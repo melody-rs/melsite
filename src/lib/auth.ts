@@ -60,3 +60,7 @@ export async function invalidate_session(session_id: string): Promise<void> {
     where: { id: session_id }
   });
 }
+
+export function user_is_admin(user: User | null): boolean {
+  return user !== null && user.is_admin
+}
