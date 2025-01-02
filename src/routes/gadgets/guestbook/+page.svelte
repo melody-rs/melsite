@@ -125,7 +125,6 @@
     margin-top: 16px;
   }
   span {
-    font-family: "Iosevka SS05 Web", monospace;
     font-size: 32px;
     color: white;
   }
@@ -157,7 +156,6 @@
   }
 
   .form-input {
-    font-family: "Iosevka SS05 Web", monospace;
     color: whitesmoke;
     font-size: 18px;
 
@@ -196,13 +194,11 @@
   }
 
   label {
-    font-family: "Iosevka SS05 Web", monospace;
     font-size: 24px;
     color: white;
   }
 
   p {
-    font-family: "Iosevka SS05 Web", monospace;
     font-size: 24px;
     font-weight: 300;
   }

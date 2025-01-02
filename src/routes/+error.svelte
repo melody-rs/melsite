@@ -12,7 +12,6 @@
     }
 
     h1 {
-      font-family: "Iosevka SS05 Web", monospace;
       text-align: center;
     }
   </style>

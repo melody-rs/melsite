@@ -9,7 +9,6 @@
     height: 1px;
     overflow: hidden;
 
-    font-family: "Iosevka SS05 Web";
     color: white;
   }
   .skip:focus {

@@ -18,7 +18,6 @@
     }
 
     p {
-      font-family: "Iosevka SS05 Web", monospace;
       font-size: 32px;
       font-weight: 300;
       margin: 16px;

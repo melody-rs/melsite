@@ -72,7 +72,6 @@
   }
 
   span {
-    font-family: "Iosevka SS05 Web", monospace;
     color: white;
     font-size: 18px;
     font-weight: 300;

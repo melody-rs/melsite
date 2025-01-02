@@ -35,7 +35,6 @@
     padding-right: 64px;
   }
   .main-header {
-    font-family: "Iosevka SS05 Web", monospace;
     font-size: 32px;
   }
   .date {
@@ -45,7 +44,6 @@
   }
 
   p {
-    font-family: "Iosevka SS05 Web", monospace;
     font-size: 24px;
     font-weight: 300;
   }

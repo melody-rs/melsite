@@ -16,7 +16,6 @@
   }
 
   .header_text {
-    font-family: "Iosevka SS05 Web", monospace;
     margin-top: 8px;
     margin-bottom: 4px;
   }

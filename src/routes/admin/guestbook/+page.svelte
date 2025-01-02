@@ -41,7 +41,6 @@
 
 <style>
   table {
-    font-family: "Iosevka SS05 Web", monospace;
     font-size: 24px;
     color: black;
     width: 100%;

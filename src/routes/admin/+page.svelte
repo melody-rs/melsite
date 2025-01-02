@@ -38,7 +38,6 @@
   }
 
   a {
-    font-family: "Iosevka SS05 Web", monospace;
     font-size: 32px;
     color: #52b4ff;
   }
@@ -48,7 +47,6 @@
   }
 
   p {
-    font-family: "Iosevka SS05 Web", monospace;
     font-size: 24px;
     font-weight: 300;
   }

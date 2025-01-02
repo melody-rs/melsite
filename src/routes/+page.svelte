@@ -54,7 +54,6 @@
 <style>
   .webring-container {
     text-align: center;
-    font-family: "Iosevka SS05 Web";
     font-size: 24px;
     color: white;
     padding-bottom: 40px;
@@ -65,7 +64,6 @@
     margin-right: auto;
     padding-top: 10px;
 
-    font-family: "Iosevka SS05 Web", monospace;
     font-size: 24px;
   }
   sup {

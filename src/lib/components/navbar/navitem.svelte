@@ -18,8 +18,6 @@
 
 <style>
   .nav_item {
-    font-family: "Iosevka SS05 Web", monospace;
-
     margin: 8px;
     font-size: min(6vw, 32px);
   }

@@ -37,9 +37,11 @@
 
 <style>
   ul {
+    display: grid;
     padding-left: 64px;
     padding-right: 64px;
     list-style-type: none;
+    gap: 32px;
   }
   .post-container {
     background: rgba(20, 20, 20, 0.377);
@@ -49,7 +51,6 @@
     box-shadow: 0 0 50px -10px rgba(40, 0, 77, 0.9);
   }
   .title {
-    font-family: "Iosevka SS05 Web", monospace;
     font-size: 32px;
   }
   .date {
@@ -59,7 +60,6 @@
   }
 
   p {
-    font-family: "Iosevka SS05 Web", monospace;
     font-size: 24px;
     font-weight: 300;
   }
