@@ -157,6 +157,7 @@
 
   .form-input {
     color: whitesmoke;
+    font-family: "Iosevka SS05 Web", monospace;
     font-size: 18px;
 
     border: min(6vw, 8px) solid;
