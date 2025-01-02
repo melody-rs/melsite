@@ -60,7 +60,7 @@
   }
 
   p {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 300;
   }
 </style>

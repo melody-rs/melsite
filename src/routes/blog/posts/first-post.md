@@ -11,13 +11,14 @@ but I'll probably be using it as a place to talk about nerdy things I don't usua
 
 ## Design
 
-At the moment it's pretty basic, but it can do some fancy syntax highlting things thanks to [shiki](https://shiki.style)!
+At the moment it's pretty basic, but it can do some fancy syntax highlighting things thanks to [shiki](https://shiki.style)!
 
 ```rs
 fn main() {
     env_logger::init();
 
-    let event_loop = winit::event_loop::EventLoop::new().expect("failed to create event loop");
+    let event_loop = winit::event_loop::EventLoop::new()
+        .expect("failed to create event loop");
 
     let mut app = App { state: None };
     if let Err(e) = event_loop.run_app(&mut app) {

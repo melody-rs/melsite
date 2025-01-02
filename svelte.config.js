@@ -6,12 +6,13 @@ import { escapeSvelte, mdsvex } from "mdsvex"
 import { createHighlighter } from 'shiki';
 
 // TODO better syntax highlighting. Maybe tree sitter
-const theme = "github-dark";
+const theme = "aurora-x";
 const shiki_highlighter = await createHighlighter({
   themes: [theme],
-  langs: ["rust", "svelte", "javascript", "typescript", "css"] // expected languages
+  langs: ["rust", "svelte", "javascript", "typescript", "css"], // expected languages
 });
-const highlight = async (code, lang = "text") => {
+
+const highlighter = async (code, lang) => {
   const base_html = shiki_highlighter.codeToHtml(code, { lang, theme })
   const html = escapeSvelte(base_html);
   return `{@html \`${html}\`}`
@@ -29,7 +30,7 @@ const config = {
       // @ts-ignore
       extensions: [".md", ".svx"],
       // @ts-ignore
-      highlight,
+      highlight: { highlighter },
     })
   ],
 
