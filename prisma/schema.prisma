@@ -18,22 +18,6 @@ model GuestbookEntry {
   text    String?
 }
 
-model Blogpost {
-  id       Int      @id @default(autoincrement())
-  title    String
-  date     DateTime
-  markdown String
-
-  comment Comment[]
-}
-
-model Comment {
-  id      Int @id @default(autoincrement())
-  post_id Int
-
-  post Blogpost @relation(fields: [post_id], references: [id], onDelete: Cascade)
-}
-
 model User {
   id Int @id @default(autoincrement())
 
