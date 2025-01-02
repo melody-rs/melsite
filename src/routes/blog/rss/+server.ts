@@ -15,9 +15,9 @@ function render(posts: MdPost[]) {
 ${posts
       .map(
         (post) => `<item>
-<guid isPermaLink="true">${site_url}/blog/${post.post_path}</guid>
+<guid isPermaLink="true">${site_url}/${post.post_path}</guid>
 <title>${post.metadata.title}</title>
-<link>${site_url}/blog/${post.post_path}</link>
+<link>${site_url}/${post.post_path}</link>
 <description>${post.metadata.title}</description>
 <pubDate>${new Date(post.metadata.date).toUTCString()}</pubDate>
 </item>`
