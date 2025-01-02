@@ -1,5 +1,5 @@
 <script>
-  import { page } from "$app/stores";
+  import { page } from "$app/state";
   import ContentWrapper from "$lib/components/content-wrapper.svelte";
   import Navbar from "$lib/components/navbar.svelte";
 </script>
@@ -23,12 +23,12 @@
   <!-- yeah i dunno anymore lmao-->
   <div style="display: table; margin:auto">
     <div class="actual-content">
-      <h1>{$page.status} {$page.error?.message}</h1>
+      <h1>{page.status} {page.error?.message}</h1>
       <a href="https://http.cat">
         <img
-          src="https://http.cat/{$page.status}"
-          alt="A picture of a cat with the text {$page.status} 
-  {$page.error?.message} underneath it"
+          src="https://http.cat/{page.status}"
+          alt="A picture of a cat with the text {page.status} 
+  {page.error?.message} underneath it"
         />
       </a>
     </div>

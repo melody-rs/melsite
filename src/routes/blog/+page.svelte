@@ -1,34 +1,66 @@
-<script>
+<script lang="ts">
   import ContentWrapper from "$lib/components/content-wrapper.svelte";
   import Navbar from "$lib/components/navbar.svelte";
+  import type { PageData } from "./$types";
+
+  let { data }: { data: PageData } = $props();
+  // TODO standardize + make function for
+  let date_format = new Intl.DateTimeFormat(undefined, {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 </script>
 
 <svelte:head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Blog</title>
 </svelte:head>
 
 <ContentWrapper>
   <Navbar />
-  <div class="center-div-body">
-    <p>TODO!</p>
-  </div>
+  <div style="padding-top:30px;"></div>
+  <ul>
+    {#each data.posts as post}
+      <div class="post-container">
+        <li>
+          <a href={post.post_path} class="title">{post.metadata.title}</a>
+          <p class="date">{date_format.format(new Date(post.metadata.date))}</p>
+          <hr />
+          <p>{post.metadata.description}</p>
+        </li>
+      </div>
+    {/each}
+  </ul>
 </ContentWrapper>
 
 <style>
-  .center-div-body {
-    display: flex;
-    /* Make it wrap on linebreaks */
-    flex-wrap: wrap;
-    flex-direction: column;
-    /* Center it */
-    align-items: center;
-    justify-content: center;
+  ul {
+    padding-left: 64px;
+    padding-right: 64px;
+    list-style-type: none;
+  }
+  .post-container {
+    background: rgba(20, 20, 20, 0.377);
+    border: 0.5px solid rgba(64, 64, 64, 0.9);
+    border-radius: 15px;
+    padding: 12px 24px;
+    box-shadow: 0 0 50px -10px rgba(40, 0, 77, 0.9);
+  }
+  .title {
+    font-family: "Iosevka SS05 Web", monospace;
+    font-size: 32px;
+  }
+  .date {
+    float: right;
+    font-size: 32px;
+    margin: 0;
   }
 
   p {
     font-family: "Iosevka SS05 Web", monospace;
-    font-size: 32px;
+    font-size: 24px;
     font-weight: 300;
   }
 </style>
