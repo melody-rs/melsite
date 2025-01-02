@@ -53,7 +53,8 @@
 
 <style>
   .webring-container {
-    text-align: center;
+    justify-content: center;
+    display: flex;
     font-size: 24px;
     color: white;
     padding-bottom: 40px;
