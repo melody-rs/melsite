@@ -23,23 +23,10 @@
       "cwd": "${workspaceFolder}"
     },
     {
-      "type": "lldb",
+      "name": "Debug development server",
+      "command": "bun run dev",
+      "type": "node-terminal",
       "request": "launch",
-      "name": "Debug unit tests in executable 'fluid-sim'",
-      "cargo": {
-        "args": [
-          "test",
-          "--no-run",
-          "--bin=fluid-sim",
-          "--package=fluid-sim"
-        ],
-        "filter": {
-          "name": "fluid-sim",
-          "kind": "bin"
-        }
-      },
-      "args": [],
-      "cwd": "${workspaceFolder}"
     }
   ]
 }

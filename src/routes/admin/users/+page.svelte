@@ -25,6 +25,10 @@
             <input type="hidden" value={user.id} name="user_id" />
             <input type="submit" value="Toggle Admin" />
           </form>
+          <form method="POST" action="?/delete_sessions">
+            <input type="hidden" value={user.id} name="user_id" />
+            <input type="submit" value="Delete Sessions" />
+          </form>
         </td>
         <td>{user.id}</td>
         <td>{user.username}</td>

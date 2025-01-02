@@ -24,6 +24,19 @@ export const actions = {
 
     await prisma.user.delete({ where: { id } });
   },
+  delete_sessions: async ({ locals, request }) => {
+    if (!user_is_admin(locals.user)) {
+      return fail(403);
+    }
+
+    const form_data = await request.formData();
+    const raw_id = form_data.get("user_id");
+    const id = Number(raw_id);
+
+    if (isNaN(id)) return fail(404);
+
+    await prisma.session.deleteMany({ where: { user_id: id } });
+  },
   toggle_admin: async ({ locals, request }) => {
     if (!user_is_admin(locals.user)) {
       return fail(403);
