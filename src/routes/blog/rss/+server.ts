@@ -11,7 +11,7 @@ function render(posts: MdPost[]) {
 <title>Melody Is Gay</title>
 <description>melody-rs's personal homepage</description>
 <link>${site_url}</link>
-<atom:link href="${site_url}/rss.xml" rel="self" type="application/rss+xml"/>
+<atom:link href="${site_url}/blog/rss" rel="self" type="application/rss+xml"/>
 ${posts
       .map(
         (post) => `<item>
