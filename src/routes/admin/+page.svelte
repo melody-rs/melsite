@@ -22,6 +22,7 @@
       what you're doing!)
     </p>
     <a href="/admin/users">User management</a>
+    <a href="/admin/blog">View blog drafts</a>
     <a href="/admin/guestbook">Guestbook</a>
   </div>
 </ContentWrapper>
