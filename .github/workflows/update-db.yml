@@ -15,14 +15,16 @@ jobs:
       # Stop site to prevent interfering with the migration
       - run: sudo systemctl stop melsite
 
+      - uses: oven-sh/setup-bun@v2
+
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Install dependencies
-        run: npm install
+        run: bun install
 
       - name: Migrate database
-        run: npx prisma migrate deploy
+        run: bunx prisma migrate deploy
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
