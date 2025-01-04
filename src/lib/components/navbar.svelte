@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { page } from "$app/state";
+  import { user_is_admin } from "$lib/auth";
   import Navitem from "$lib/components/navbar/navitem.svelte";
 </script>
 
@@ -10,6 +12,10 @@
     <Navitem href="/projects" name="Projects" />
     <Navitem href="/gadgets" name="Gadgets" />
     <Navitem href="/trinkets" name="Trinkets" />
+
+    {#if user_is_admin(page.data.user)}
+      <Navitem href="/admin" name="Admin" />
+    {/if}
   </nav>
 </div>
 

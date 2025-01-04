@@ -1,10 +1,13 @@
 <script lang="ts">
+  import Navbar from "$lib/components/navbar.svelte";
   import type { PageData } from "./$types";
 
   let { data }: { data: PageData } = $props();
 </script>
 
-<table>
+<Navbar />
+
+<table style="margin-top: 8px;">
   <tbody>
     <tr>
       <th>Actions</th>
