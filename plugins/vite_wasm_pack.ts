@@ -82,25 +82,16 @@ export function rust_crate(crate_path: string, pack_options: WasmPackOptions = {
   let wasm_filename = crate_name.replace(/\-/g, "_") + "_bg.wasm";
   let wasm_path = path.join(pkg_path, wasm_filename);
 
-  const mode = import.meta.env.MODE;
-  if (mode === "production" && pack_options.release === undefined) {
-    pack_options.release = true;
-  }
-  if (mode === "development" && pack_options.dev === undefined) {
+  if (process.env.NODE_ENV == "development" && pack_options.dev === undefined) {
     pack_options.dev = true;
   }
-
-  const prefix = "wasm-pack-plugin/"
+  if (process.env.NODE_ENV == "production" && pack_options.dev === undefined) {
+    pack_options.release = true;
+  }
 
   return {
     name: "wasm-pack",
     enforce: "pre",
-
-    // resolveId(source, importer, options) {
-    //   if (source == crate_name) {
-    //     return this.resolve(pkg_path, importer, options)
-    //   }
-    // },
 
     config(config, env) {
       if (!config.server) config.server = {};
