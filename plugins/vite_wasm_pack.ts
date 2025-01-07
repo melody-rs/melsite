@@ -82,13 +82,32 @@ export function rust_crate(crate_path: string, pack_options: WasmPackOptions = {
   let wasm_filename = crate_name.replace(/\-/g, "_") + "_bg.wasm";
   let wasm_path = path.join(pkg_path, wasm_filename);
 
-  const prepareBuild = async () => {
-    await fs.copy(pkg_path, path.join('node_modules', crate_name));
-  };
+  const mode = import.meta.env.MODE;
+  if (mode === "production" && pack_options.release === undefined) {
+    pack_options.release = true;
+  }
+  if (mode === "development" && pack_options.dev === undefined) {
+    pack_options.dev = true;
+  }
+
+  const prefix = "wasm-pack-plugin/"
 
   return {
     name: "wasm-pack",
     enforce: "pre",
+
+    // resolveId(source, importer, options) {
+    //   if (source == crate_name) {
+    //     return this.resolve(pkg_path, importer, options)
+    //   }
+    // },
+
+    config(config, env) {
+      if (!config.server) config.server = {};
+      if (!config.server.fs) config.server.fs = {}
+      if (!config.server.fs.allow) config.server.fs.allow = [];
+      config.server.fs?.allow.push(pkg_path);
+    },
 
     async buildStart(options) {
       if (currently_building) return;
@@ -96,8 +115,6 @@ export function rust_crate(crate_path: string, pack_options: WasmPackOptions = {
       currently_building = true;
       await run_wasm_pack(crate_path, pack_options);
       currently_building = false;
-
-      await prepareBuild();
     },
 
     async handleHotUpdate(ctx) {
@@ -111,8 +128,6 @@ export function rust_crate(crate_path: string, pack_options: WasmPackOptions = {
       currently_building = true;
       await run_wasm_pack(crate_path, pack_options);
       currently_building = false;
-
-      await prepareBuild();
     },
   }
 }

@@ -8,6 +8,6 @@ extern "C" {
 
 #[cfg(target_arch = "wasm32")]
 #[wasm_bindgen]
-pub fn run() {
-    alert("Hello!");
+pub fn test() {
+    alert("sfhvgdvdg!");
 }

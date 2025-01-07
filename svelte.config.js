@@ -39,6 +39,9 @@ const config = {
     adapter: adapter({
       precompress: false,
     }),
+    alias: {
+      "tetris-3d": "rust/tetris-3d/pkg"
+    }
     // csrf: true,
   }
 };
