@@ -30,6 +30,7 @@ jobs:
         run: |
           sudo systemctl stop melsite
           rm ~/melsite-build -r
-          cp ./node_modules ~/melsite-build/ -r
-          cp ./build ~/melsite-build/ -r
+          mkdir ~/melsite-build
+          cp ./node_modules ~/melsite-build/node_modules -r
+          cp ./build ~/melsite-build/build -r
           sudo systemctl start melsite
