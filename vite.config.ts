@@ -10,7 +10,7 @@ export default defineConfig({
   plugins: [
     sveltekit(),
     wasm(),
-    rust_crate("rust/tetris-3d", {no_opt: true})
+    rust_crate("rust/tetris-3d")
   ],
   server: {
     fs: {
