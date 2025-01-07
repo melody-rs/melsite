@@ -25,5 +25,10 @@ jobs:
         run: |
           bun --bun run build
 
-      # Restart site
-      - run: sudo systemctl restart melsite
+
+      - name: Update site
+        run: |
+          sudo systemctl stop melsite
+          rm ~/melsite -r
+          cp ./build ~/melsite -r
+          sudo systemctl start melsite
