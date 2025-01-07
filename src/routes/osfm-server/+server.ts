@@ -47,6 +47,7 @@ export const GET: RequestHandler = async (event) => {
     headers: {
       "Content-Disposition": "attachment; filename=\"osfm-server.zip\"",
       "Content-Length": stats.size.toString(),
+      "Content-Type": "application/zip",
     }
   });
 }
