@@ -8,15 +8,14 @@ import { finished } from "node:stream";
 // mostly copied from https://github.com/nodejs/node/blob/main/lib/internal/webstreams/adapters.js#L424
 export const GET: RequestHandler = async (event) => {
   const stream = fs.createReadStream(
-    "/mnt/minecraft_server/osfm-world.zip",
+    "/home/melody/Downloads/tetris_3d_bg.DgX0Kmv8.wasm",
     { highWaterMark: 65536 }
   );
   stream.pause();
 
   let was_canceled = false;
   const strategy = new ByteLengthQueuingStrategy({ highWaterMark: stream.readableHighWaterMark });
-  const source: UnderlyingByteSource = {
-    type: "bytes",
+  const source: UnderlyingSource = {
     start(controller) {
       stream.on("data", (chunk: Buffer) => {
         let data = new Uint8Array(chunk);
