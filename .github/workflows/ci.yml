@@ -29,6 +29,7 @@ jobs:
       - name: Update site
         run: |
           sudo systemctl stop melsite
-          rm ~/melsite -r
-          cp ./build ~/melsite -r
+          rm ~/melsite-build -r
+          cp ./node_modules ~/melsite-build/ -r
+          cp ./build ~/melsite-build/ -r
           sudo systemctl start melsite
