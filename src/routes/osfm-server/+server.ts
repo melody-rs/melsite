@@ -7,6 +7,8 @@ import { finished } from "node:stream";
 // bun doesn't support toWeb yet so we have to do it ourselves
 // mostly copied from https://github.com/nodejs/node/blob/main/lib/internal/webstreams/adapters.js#L424
 export const GET: RequestHandler = async (event) => {
+  const filename = "/mnt/minecraft_server/osfm-world.zip";
+  const stats = fs.statSync(filename);
   const stream = fs.createReadStream(
     "/mnt/minecraft_server/osfm-world.zip",
     { highWaterMark: 65536 }
@@ -43,7 +45,8 @@ export const GET: RequestHandler = async (event) => {
   return new Response(web_stream, {
     status: 200,
     headers: {
-      "Content-Disposition": "attachment; filename=\"osfm-server.zip\""
+      "Content-Disposition": "attachment; filename=\"osfm-server.zip\"",
+      "Content-Length": stats.size.toString(),
     }
   });
 }
