@@ -1,7 +1,7 @@
 import type { Plugin } from "vite"
 import { minimatch } from "minimatch"
 import path from "node:path"
-import fs from "fs-extra";
+import process from "node:process";
 
 export interface WasmPackOptions {
   out_dir?: string,
@@ -73,12 +73,8 @@ async function run_wasm_pack(crate_path: string, options: WasmPackOptions = {}) 
 }
 
 export function rust_crate(crate_path: string, pack_options: WasmPackOptions = {}): Plugin {
-  let crate_name = pack_options.out_name ?? path.basename(crate_path);
-  let pkg_folder = pack_options.out_dir ?? "pkg";
-  let pkg_path = path.join(crate_path, pkg_folder);
-
-  let wasm_filename = crate_name.replace(/\-/g, "_") + "_bg.wasm";
-  let wasm_path = path.join(pkg_path, wasm_filename);
+  const pkg_folder = pack_options.out_dir ?? "pkg";
+  const pkg_path = path.join(crate_path, pkg_folder);
 
   if (process.env.NODE_ENV == "development" && pack_options.dev === undefined) {
     pack_options.dev = true;
@@ -105,20 +101,13 @@ export function rust_crate(crate_path: string, pack_options: WasmPackOptions = {
     enforce: "pre",
 
     apply(config) {
-      return !config.build?.ssr;
-    },
-
-    config(config, env) {
-      if (!config.server) config.server = {};
-      if (!config.server.fs) config.server.fs = {}
-      if (!config.server.fs.allow) config.server.fs.allow = [];
-      config.server.fs?.allow.push(pkg_path);
+      if (watch) return true;
+      return config.optimizeDeps === undefined;
     },
 
     async buildStart(options) {
       watch = this.meta.watchMode;
 
-      if (!watch) return;
       await build();
     },
 
