@@ -82,9 +82,6 @@ export function rust_crate(crate_path: string, pack_options: WasmPackOptions = {
   if (process.env.NODE_ENV == "production" && pack_options.dev === undefined) {
     pack_options.release = true;
   }
-  if (pack_options.mode === undefined) {
-    pack_options.mode = "no-install";
-  }
 
   let watch = false;
   let is_building = false;
