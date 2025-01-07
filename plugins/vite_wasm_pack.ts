@@ -73,8 +73,6 @@ async function run_wasm_pack(crate_path: string, options: WasmPackOptions = {}) 
 }
 
 export function rust_crate(crate_path: string, pack_options: WasmPackOptions = {}): Plugin {
-  let currently_building = false;
-
   let crate_name = pack_options.out_name ?? path.basename(crate_path);
   let pkg_folder = pack_options.out_dir ?? "pkg";
   let pkg_path = path.join(crate_path, pkg_folder);
@@ -87,6 +85,21 @@ export function rust_crate(crate_path: string, pack_options: WasmPackOptions = {
   }
   if (process.env.NODE_ENV == "production" && pack_options.dev === undefined) {
     pack_options.release = true;
+  }
+  if (pack_options.mode === undefined) {
+    pack_options.mode = "no-install";
+  }
+
+  let watch = false;
+  let did_build = false;
+  let is_building = false;
+  const build = async () => {
+    if (is_building) return;
+
+    is_building = true;
+    await run_wasm_pack(crate_path, pack_options);
+    is_building = false;
+    did_build = true;
   }
 
   return {
@@ -101,24 +114,21 @@ export function rust_crate(crate_path: string, pack_options: WasmPackOptions = {
     },
 
     async buildStart(options) {
-      if (currently_building) return;
-
-      currently_building = true;
-      await run_wasm_pack(crate_path, pack_options);
-      currently_building = false;
+      watch = this.meta.watchMode;
+      // only build once. for some reason vite calls buildStart() twice...
+      if (!watch && did_build) return;
+      await build();
     },
 
     async handleHotUpdate(ctx) {
-      if (currently_building) return;
+      if (!watch) return;
 
       const pattern = path.resolve(ctx.server.config.root, crate_path, "/**/*.rs");
       const should_run = minimatch(ctx.file, pattern);
 
       if (!should_run) return;
 
-      currently_building = true;
-      await run_wasm_pack(crate_path, pack_options);
-      currently_building = false;
+      await build();
     },
   }
 }

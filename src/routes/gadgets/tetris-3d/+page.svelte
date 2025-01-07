@@ -2,6 +2,7 @@
   import ContentWrapper from "$lib/components/content-wrapper.svelte";
   import Navbar from "$lib/components/navbar.svelte";
   import { onMount } from "svelte";
+  // @ts-ignore (should always be there, just sometimes not available)
   const module = import("tetris-3d");
 
   if (import.meta.hot) {
