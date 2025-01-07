@@ -91,7 +91,6 @@ export function rust_crate(crate_path: string, pack_options: WasmPackOptions = {
   }
 
   let watch = false;
-  let did_build = false;
   let is_building = false;
   const build = async () => {
     if (is_building) return;
@@ -99,12 +98,15 @@ export function rust_crate(crate_path: string, pack_options: WasmPackOptions = {
     is_building = true;
     await run_wasm_pack(crate_path, pack_options);
     is_building = false;
-    did_build = true;
   }
 
   return {
     name: "wasm-pack",
     enforce: "pre",
+
+    apply(config) {
+      return !config.build?.ssr;
+    },
 
     config(config, env) {
       if (!config.server) config.server = {};
@@ -115,8 +117,8 @@ export function rust_crate(crate_path: string, pack_options: WasmPackOptions = {
 
     async buildStart(options) {
       watch = this.meta.watchMode;
-      // only build once. for some reason vite calls buildStart() twice...
-      if (!watch && did_build) return;
+
+      if (!watch) return;
       await build();
     },
 
