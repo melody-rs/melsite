@@ -8,7 +8,7 @@ import { finished } from "node:stream";
 // mostly copied from https://github.com/nodejs/node/blob/main/lib/internal/webstreams/adapters.js#L424
 export const GET: RequestHandler = async (event) => {
   const stream = fs.createReadStream(
-    "/home/melody/Downloads/tetris_3d_bg.DgX0Kmv8.wasm",
+    "/mnt/minecraft_server/osfm-world.zip",
     { highWaterMark: 65536 }
   );
   stream.pause();
