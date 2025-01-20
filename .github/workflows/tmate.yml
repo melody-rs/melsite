@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  tmaate:
+  tmate:
     runs-on: [self-hosted]
     steps:
     - name: Setup tmate session
