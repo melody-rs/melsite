@@ -10,3 +10,5 @@ jobs:
     steps:
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@f309efdef7da88e388f96a3cafc4f181ac639f7a
+      with:
+        sudo: false
