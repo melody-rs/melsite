@@ -17,8 +17,10 @@ export const load: LayoutServerLoad = async (event) => {
   // fastest way to go from Uint8Array -> hex string (as far as I'm aware)
   // would rather avoid doing the round trip and encode the sha as a string directly but idk how
   const octets = new Array(sha_bytes.length);
-  for (const byte in sha_bytes)
+  for (let i = 0; i < sha_bytes.length; i++) {
+    const byte = sha_bytes[i];
     octets.push(byte_to_hex[byte]);
+  }
   const hash = octets.join('');
 
   // create the visitor (unless it already exists)
