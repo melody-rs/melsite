@@ -12,9 +12,6 @@
     margin-right: auto;
     margin-left: auto;
 
-    padding: 3px;
-    padding-top: 0px;
-
     border-left: 9px double rgba(85, 0, 120, 1);
     border-right: 9px double rgba(85, 0, 120, 1);
 

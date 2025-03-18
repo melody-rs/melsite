@@ -35,3 +35,7 @@ model Session {
 
   user User @relation(references: [id], fields: [user_id], onDelete: Cascade)
 }
+
+model Visitor {
+  hash String @unique // hash of ip + user agent
+}
